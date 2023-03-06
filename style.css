@@ -5,6 +5,7 @@
 body {
     margin: 0;
     background-image: url(./images/brown-wooden-textured-flooring-background.jpg);
+    background-color: #0D0D0D;
 
     color: #D9D9D9;
     font-family: 'Inter', sans-serif;
@@ -20,6 +21,11 @@ ul {
     margin: 0;
     padding: 0;
     list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #D9D9D9;
 }
 
 .container {
@@ -53,12 +59,36 @@ ul {
     justify-content: space-between;
 }
 
-li + li {
+/* li + li {
     padding-top: 1em;
+} */
+
+.sidebar-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
 }
 
 .sidebar-projects {
-    padding: 1em 2em 0 2em;
+    padding: 0 2em;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.sidebar-item {
+    background-image: url(./images/Group\ 1.png);
+    background-repeat: no-repeat;
+    background-size: 0;
+}
+
+.sidebar-item:hover {
+    background-size: contain;
+}
+
+.project-item:hover {
+    opacity: .7;
 }
 
 .btn-plus {
