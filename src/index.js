@@ -53,6 +53,7 @@ const tasksFactory = (name, dueDate=null, priority=null, description=null) => {
     return task;
 }
 
+// create and display notes
 const notesFactory = (title, text=null) => {
     const note = createNewElement('div', 'note');
     const noteChildren = [
@@ -69,10 +70,8 @@ const notesFactory = (title, text=null) => {
     return note;
 }
 
-
+// a template to make links work
 const sidebarList = document.querySelector('.sidebar-list');
-
-// console.log(sidebarLinks[0].innerText)
 
 sidebarList.addEventListener('click', (e) => {
     console.log(e.target.text);
@@ -82,8 +81,20 @@ sidebarList.addEventListener('click', (e) => {
 })
 
 // display the date in the header
-
 const today = fns.format(new Date(), 'EEEE, MMM d');
 const dateDisplay = document.querySelector('.today-date');
 
 dateDisplay.innerText = today;
+
+// open and close pop-up form
+const plusBtn = document.querySelector('.plus-btn');
+
+plusBtn.addEventListener('click', () => {
+    document.querySelector('.bg-form').style.display = 'flex';
+})
+
+const closeForm = document.querySelector('.close-form');
+
+closeForm.addEventListener('click', () => {
+    document.querySelector('.bg-form').style.display = 'none';
+})
