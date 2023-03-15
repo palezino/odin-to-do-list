@@ -284,7 +284,7 @@ a {
     justify-content: center;
     align-items: center;
 
-    display: none;
+    /* display: none; */
 }
 
 .container-form {
@@ -375,4 +375,67 @@ textarea:focus {
 
 .note-text-form {
     font-size: 1rem;
+}
+
+.due-date-form {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+}
+
+.due-date-form label {
+    color:#0D0D0D;
+    font-size: 1rem;
+}
+
+.due-date {
+    color: #0D0D0D;
+    padding: .2em .3em;
+    border: 2px solid #0D0D0D;
+    border-radius: 8px;
+    /* font-size: 1rem; */
+}
+
+.priority-submit-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.priority-form {
+    color: #0D0D0D;
+    font-size: 1rem;
+
+    display: flex;
+    align-items: center;
+    gap: .5em;
+}
+
+#priority-low {
+    accent-color: green;
+    transform: scale(1.5);
+}
+
+#priority-medium {
+    accent-color: yellow;
+    transform: scale(1.5);
+}
+
+#priority-high {
+    accent-color: red;
+    transform: scale(1.5);
+}
+
+.submit-btn {
+    border: none;
+    border-radius: 10px;
+    padding: .4em 1.2em;
+
+    background-color: #D9D9D9;
+    color: #0D0D0D;
+}
+
+.submit-btn:hover {
+    cursor: pointer;
+    opacity: .7;
 }

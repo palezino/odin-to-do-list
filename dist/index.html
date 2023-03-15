@@ -38,7 +38,7 @@
     </div>
     <!-- pop-up form -->
     <div class="bg-form">
-        <div class="container-form">
+        <form class="container-form">
             <div class="close-form">+</div>
             <div class="header-form">Let's create a new...</div>
             <div class="main-form">
@@ -51,9 +51,26 @@
                 <div class="new-note-form">
                     <textarea class="note-title-form" name="note-title" rows="1" placeholder="Title"></textarea>
                     <textarea class="note-text-form" name="note-text" rows="10" placeholder="Details"></textarea>
+                    <div class="due-date-form">
+                        <label for="due-date">Due date:</label>
+                        <input type="date" name="due-date" id="due-date" class="due-date">
+                    </div>
+                    <div class="priority-submit-form">
+                        <div class="priority-form">
+                            <p>Priority:</p>
+                            <label for="priority-low">Low</label>
+                            <input class="priority-low" type="radio" name="priority" id="priority-low" value="low">
+                            <label for="priority-medium">Medium</label>
+                            <input type="radio" name="priority" id="priority-medium" value="medium">
+                            <label for="priority-high">High</label>
+                            <input type="radio" name="priority" id="priority-high" value="high">
+                        </div>
+                        <!-- <input class="submit-btn" type="submit" value="Create"> -->
+                        <button class="submit-btn">Create</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>    
 </body>
 </html>
