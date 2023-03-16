@@ -31,18 +31,22 @@ const tasksFactory = (name, dueDate=null, priority=null, description=null) => {
     ];
 
     const taskTitleChildren = [];
+    // checkbox element
     const checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
     const checkmark = createNewElement('span', 'checkmark');
     taskTitleChildren.push(checkbox);
     taskTitleChildren.push(checkmark);
     appendChildren(taskChildren[1], taskTitleChildren);
+    // date
+    
 
+    // edit icon
     const editImg = document.createElement('img');
     editImg.setAttribute('src', './images/edit-3.svg');
     editImg.setAttribute('alt', 'edit');
     taskChildren[3].appendChild(editImg);
-
+    // delete icon
     const deleteImg = document.createElement('img');
     deleteImg.setAttribute('src', './images/x-square.svg');
     deleteImg.setAttribute('alt', 'delete');
@@ -70,15 +74,15 @@ const notesFactory = (title, text=null) => {
     return note;
 }
 
-// a template to make links work
-const sidebarList = document.querySelector('.sidebar-list');
+// // a template to make links work
+// const sidebarList = document.querySelector('.sidebar-list');
 
-sidebarList.addEventListener('click', (e) => {
-    console.log(e.target.text);
-    if (e.target.text === 'Home') {
-        mainTasks.appendChild(tasksFactory('Privet'));
-    }
-})
+// sidebarList.addEventListener('click', (e) => {
+//     console.log(e.target.text);
+//     if (e.target.text === 'Home') {
+//         mainTasks.appendChild(tasksFactory('Privet'));
+//     }
+// })
 
 // display the date in the header
 const today = fns.format(new Date(), 'EEEE, MMM d');

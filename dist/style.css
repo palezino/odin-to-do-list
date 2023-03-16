@@ -209,62 +209,15 @@ a {
 
 .task-title {
     flex-grow: 1;
-    
-    position: relative;
-    padding-left: 35px;
+    display: flex;
+    align-items: center;
 }
 
-/* css for checkmark */
-/* change it to JS with a 'checked' icon? */
-
-.container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
+#task-title {
+    accent-color: #D9D9D9;
+    transform: scale(1.5);
+    margin-right: 1em;
 }
-
-.checkmark {
-    position: absolute;
-    top: 4px;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #D9D9D9;
-}
-
-.task-title:hover input ~ .checkmark {
-    background-color: #ccc;
-}
-
-.task-title input:checked ~ .checkmark {
-    background-color: #2196F3;
-}
-
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-.task-title input:checked ~ .checkmark:after {
-    display: block;
-}
-
-.task-title .checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
-/* the end of css for checkmark */
 
 .task-edit, .task-delete {
     display: flex;
