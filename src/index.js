@@ -80,21 +80,53 @@ sidebarList.addEventListener('click', (e) => {
     }
 })
 
-// // display the date in the header
-// const today = fns.format(new Date(), 'EEEE, MMM d');
-// const dateDisplay = document.querySelector('.today-date');
+// display the date in the header
+const today = fns.format(new Date(), 'EEEE, MMM d');
+const dateDisplay = document.querySelector('.today-date');
 
-// dateDisplay.innerText = today;
+dateDisplay.innerText = today;
 
-// // open and close pop-up form
-// const plusBtn = document.querySelector('.plus-btn');
+// open and close pop-up form
+const plusBtn = document.querySelector('.plus-btn');
 
-// plusBtn.addEventListener('click', () => {
-//     document.querySelector('.bg-form').style.display = 'flex';
-// })
+plusBtn.addEventListener('click', () => {
+    document.querySelector('.bg-form').style.display = 'flex';
+    document.querySelector('.todo-form').style = "transform: scale(1.1); font-weight: 700;";
+})
 
-// const closeForm = document.querySelector('.close-form');
+const bgForm = document.querySelector('.bg-form');
 
-// closeForm.addEventListener('click', () => {
-//     document.querySelector('.bg-form').style.display = 'none';
-// })
+bgForm.addEventListener('click', (e) => {
+    // console.log(e.target.className);
+    if (e.target.className === 'bg-form' || e.target.className === "close-form") {
+        bgForm.style.display = 'none';
+    }
+})
+
+bgForm.addEventListener('keydown', (e) => {
+    // console.log(e.keyCode);
+    if (e.keyCode === 27) {
+        bgForm.style.display = 'none';
+    }
+})
+
+
+
+// working links in pop-up form
+const sidebarListForm = document.querySelector('.sidebar-list-form');
+
+sidebarListForm.addEventListener('click', (e) => {
+    // console.log(e.target.textContent);
+    if (e.target.textContent === 'TO-DO') {
+        document.querySelector('.note-form').style = "transform: scale(1); font-weight: 400;";
+        document.querySelector('.new-note-form').style.display = 'none';
+        document.querySelector('.new-task-form').style.display = 'flex';
+        document.querySelector('.todo-form').style = "transform: scale(1.1); font-weight: 700;";
+    } 
+    if (e.target.textContent === 'Note') {
+        document.querySelector('.todo-form').style = "transform: scale(1); font-weight: 400;";
+        document.querySelector('.new-task-form').style.display = 'none';
+        document.querySelector('.new-note-form').style.display = 'flex';
+        document.querySelector('.note-form').style = "transform: scale(1.1); font-weight: 700;";
+    }
+})
