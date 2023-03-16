@@ -219,9 +219,18 @@ a {
     margin-right: 1em;
 }
 
+.task-date {
+    font-size: 1rem;
+}
+
 .task-edit, .task-delete {
     display: flex;
     align-items: center;
+}
+
+.task-edit:hover, .task-delete:hover {
+    opacity: 0.7;
+    cursor: pointer;
 }
 
 /* pop-up form */

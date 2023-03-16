@@ -39,7 +39,7 @@ const tasksFactory = (name, dueDate=null, priority=null, description=null) => {
     taskTitleChildren.push(checkmark);
     appendChildren(taskChildren[1], taskTitleChildren);
     // date
-    
+
 
     // edit icon
     const editImg = document.createElement('img');
@@ -85,7 +85,7 @@ const notesFactory = (title, text=null) => {
 // })
 
 // display the date in the header
-const today = fns.format(new Date(), 'EEEE, MMM d');
+const today = fns.format(new Date(), 'EEEE, MMM d y');
 const dateDisplay = document.querySelector('.today-date');
 
 dateDisplay.innerText = today;
