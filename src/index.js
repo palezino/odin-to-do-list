@@ -90,7 +90,7 @@ const dateDisplay = document.querySelector('.today-date');
 
 dateDisplay.innerText = today;
 
-// open and close pop-up form
+// open and close pop-up forms (create and edit)
 const plusBtn = document.querySelector('.plus-btn');
 
 plusBtn.addEventListener('click', () => {
@@ -102,8 +102,9 @@ const bgForm = document.querySelector('.bg-form');
 
 bgForm.addEventListener('click', (e) => {
     // console.log(e.target.className);
-    if (e.target.className === 'bg-form' || e.target.className === "close-form") {
+    if (e.target.className === "bg-form" || e.target.className === "close-form") {
         bgForm.style.display = 'none';
+        document.querySelector(".task-edit-bg").style.display = 'none';
     }
 })
 
@@ -114,7 +115,23 @@ bgForm.addEventListener('keydown', (e) => {
     }
 })
 
+const taskEditBtn = document.querySelector('.task-edit');
+const taskEditForm = document.querySelector('.task-edit-bg');
 
+taskEditBtn.addEventListener('click', () => {
+    taskEditForm.style.display = 'flex';
+})
+
+taskEditForm.addEventListener('click', (e) => {
+    if (e.target.className === "task-edit-bg" || e.target.className === "close-form") {
+        taskEditForm.style.display = "none";
+    }
+})
+
+// delete targeted task
+document.querySelectorAll('.task-delete').forEach(btn => btn.addEventListener('click', (e) => {
+    mainTasks.removeChild(e.target.parentElement.parentElement);
+}));
 
 // working links in pop-up form
 const sidebarListForm = document.querySelector('.sidebar-list-form');
