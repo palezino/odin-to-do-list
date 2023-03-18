@@ -511,6 +511,13 @@ textarea:focus {
     font-size: 1rem;
 }
 
+.due-date-input-edit {
+    color: #0D0D0D;
+    padding: .2em .3em;
+    border: 2px solid #0D0D0D;
+    border-radius: 8px;
+}
+
 .priority-submit-edit {
     display: flex;
     justify-content: space-between;
@@ -524,6 +531,21 @@ textarea:focus {
     display: flex;
     align-items: center;
     gap: .5em;
+}
+
+#priority-edit-low {
+    accent-color: green;
+    transform: scale(1.5);
+}
+
+#priority-edit-medium {
+    accent-color: yellow;
+    transform: scale(1.5);
+}
+
+#priority-edit-high {
+    accent-color: red;
+    transform: scale(1.5);
 }
 
 .project-check-edit {
