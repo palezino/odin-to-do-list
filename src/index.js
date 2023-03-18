@@ -61,8 +61,8 @@ bgForm.addEventListener("keydown", (e) => {
 });
 
 // edit form
-manageTasks().openEditForm();
-manageTasks().closeEditForm();
+// manageTasks().openEditForm();
+// manageTasks().closeEditForm();
 
 
 
@@ -109,7 +109,8 @@ submitBtn.addEventListener('click', () => {
   mainTasks.appendChild(tasksFactory());
   bgForm.style.display = "none";
   manageTasks().deleteTask();
-  // manageTasks().openEditForm();
+  manageTasks().openEditForm();
+  manageTasks().closeEditForm();
 })
 
 
