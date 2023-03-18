@@ -207,7 +207,7 @@ a {
     border-radius: 100px;
 }
 
-.task-title {
+.task-title-checkbox {
     flex-grow: 1;
     display: flex;
     align-items: center;
@@ -355,7 +355,7 @@ textarea:focus {
     font-size: 1rem;
 }
 
-.due-date {
+.due-date-input {
     color: #0D0D0D;
     padding: .2em .3em;
     border: 2px solid #0D0D0D;
@@ -479,4 +479,55 @@ textarea:focus {
     display: flex;
     flex-direction: column;
     gap: .5em;
+}
+
+.close-edit {
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    font-size: 32px;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+
+.task-title-edit {
+    font-size: 1.3rem;
+    font-weight: bold;
+
+}
+
+.task-text-edit {
+    font-size: 1rem;
+}
+
+.due-date-edit {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+}
+
+.due-date-edit label {
+    color:#0D0D0D;
+    font-size: 1rem;
+}
+
+.priority-submit-edit {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.priority-edit {
+    color: #0D0D0D;
+    font-size: 1rem;
+
+    display: flex;
+    align-items: center;
+    gap: .5em;
+}
+
+.project-check-edit {
+    align-self: flex-end;
+    font-size: .9rem;
+    color: #0D0D0D;
 }
