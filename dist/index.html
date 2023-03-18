@@ -34,9 +34,9 @@
             <div class="main-tasks">
                 <div class="task">
                     <div class="task-priority"></div>
-                    <div class="task-title">
-                        <input type="checkbox" id="task-title" name="task-completion">
-                        <label for="task-title">One</label>
+                    <div class="task-title-checkbox">
+                        <input type="checkbox" id="task-title">
+                        <label class="task-title">One</label>
                     </div>
                     <div class="task-date">Thursday, Mar 16 2023</div>
                     <div class="task-edit">
@@ -48,9 +48,9 @@
                 </div>
                 <div class="task">
                     <div class="task-priority"></div>
-                    <div class="task-title">
-                        <input type="checkbox" id="task-title" name="task-completion">
-                        <label for="task-title">Two</label>
+                    <div class="task-title-checkbox">
+                        <input type="checkbox" id="task-title">
+                        <label class="task-title">Two</label>
                     </div>
                     <div class="task-date">Thursday, Mar 16 2023</div>
                     <div class="task-edit">
@@ -62,9 +62,9 @@
                 </div>
                 <div class="task">
                     <div class="task-priority"></div>
-                    <div class="task-title">
-                        <input type="checkbox" id="task-title" name="task-completion">
-                        <label for="task-title">Three</label>
+                    <div class="task-title-checkbox">
+                        <input type="checkbox" id="task-title">
+                        <label class="task-title">Three</label>
                     </div>
                     <div class="task-date">Thursday, Mar 16 2023</div>
                     <div class="task-edit">
@@ -79,7 +79,7 @@
     </div>
     <!-- pop-up form -->
     <div class="bg-form">
-        <form class="container-form">
+        <div class="container-form">
             <div class="close-form">+</div>
             <div class="header-form">Let's create a new...</div>
             <div class="main-form">
@@ -93,15 +93,14 @@
                 <div class="new-task-form">
                     <textarea class="task-title-form" name="task-title" rows="1" placeholder="Title"></textarea>
                     <textarea class="task-text-form" name="task-text" rows="10" placeholder="Details"></textarea>
-                    <!-- <div class="due-date-project-form"> -->
-                        <div class="project-check-form">
-                            <label for="project-check">Make it a part of the project?</label>
-                            <input type="checkbox" name="project-check" id="project-check">
-                        </div>
+                    <div class="project-check-form">
+                        <label for="project-check">Make it a part of the project?</label>
+                        <input type="checkbox" name="project-check" id="project-check">
+                    </div>
                     <div class="due-date-project-name">
                         <div class="due-date-form">
                             <label for="due-date">Due date:</label>
-                            <input type="date" name="due-date" id="due-date" class="due-date">
+                            <input class="due-date-input" type="date" name="due-date" id="due-date">
                         </div>
                         <div class="project-name">
                             <input type="text" name="project-name" id="project-name" placeholder="Your project name" list="project-list" disabled>
@@ -112,18 +111,16 @@
                             </datalist>
                         </div>
                     </div>
-                    <!-- </div> -->
                     <div class="priority-submit-form">
                         <div class="priority-form">
                             <p>Priority:</p>
                             <label for="priority-low">Low</label>
-                            <input class="priority-low" type="radio" name="priority" id="priority-low" value="low">
+                            <input class="priority-input" type="radio" name="priority" id="priority-low" value="low">
                             <label for="priority-medium">Medium</label>
-                            <input type="radio" name="priority" id="priority-medium" value="medium">
+                            <input class="priority-input" type="radio" name="priority" id="priority-medium" value="medium">
                             <label for="priority-high">High</label>
-                            <input type="radio" name="priority" id="priority-high" value="high">
+                            <input class="priority-input" type="radio" name="priority" id="priority-high" value="high">
                         </div>
-                        <!-- <input class="submit-btn" type="submit" value="Create"> -->
                         <button class="submit-btn">Create</button>
                     </div>
                 </div>
@@ -134,23 +131,23 @@
                     <button class="submit-btn">Create</button>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
     <!-- task edit form -->
     <div class="task-edit-bg">
-        <form class="task-edit-container">
-            <div class="close-form">+</div>
-            <textarea class="task-title-form" name="task-title" rows="1" placeholder="Title"></textarea>
-            <textarea class="task-text-form" name="task-text" rows="10" placeholder="Details"></textarea>
+        <div class="task-edit-container">
+            <div class="close-edit">+</div>
+            <textarea class="task-title-edit" name="task-title" rows="1" placeholder="Title"></textarea>
+            <textarea class="task-text-edit" name="task-text" rows="10" placeholder="Details"></textarea>
             <!-- <div class="due-date-project-form"> -->
-                <div class="project-check-form">
+                <div class="project-check-edit">
                     <label for="project-check">Make it a part of the project?</label>
                     <input type="checkbox" name="project-check" id="project-check">
                 </div>
             <div class="due-date-project-name">
-                <div class="due-date-form">
+                <div class="due-date-edit">
                     <label for="due-date">Due date:</label>
-                    <input type="date" name="due-date" id="due-date" class="due-date">
+                    <input type="date" name="due-date" id="due-date" class="due-date-input">
                 </div>
                 <div class="project-name">
                     <input type="text" name="project-name" id="project-name" placeholder="Your project name" list="project-list" disabled>
@@ -161,9 +158,8 @@
                     </datalist>
                 </div>
             </div>
-            <!-- </div> -->
-            <div class="priority-submit-form">
-                <div class="priority-form">
+            <div class="priority-submit-edit">
+                <div class="priority-edit">
                     <p>Priority:</p>
                     <label for="priority-low">Low</label>
                     <input class="priority-low" type="radio" name="priority" id="priority-low" value="low">
@@ -172,10 +168,9 @@
                     <label for="priority-high">High</label>
                     <input type="radio" name="priority" id="priority-high" value="high">
                 </div>
-                <!-- <input class="submit-btn" type="submit" value="Create"> -->
                 <button class="submit-btn">Edit</button>
             </div>
-        </form>
+        </div>
     </div>
 </body>
 </html>
