@@ -33,7 +33,9 @@
             </div>
             <div class="main-tasks">
                 <div class="task">
-                    <div class="task-priority"></div>
+                    <div class="task-priority">
+                        <span class="priority-value"></span>
+                    </div>
                     <div class="task-title-checkbox">
                         <input type="checkbox" id="task-title">
                         <label class="task-title">One</label>
@@ -147,7 +149,7 @@
             <div class="due-date-project-name">
                 <div class="due-date-edit">
                     <label for="due-date">Due date:</label>
-                    <input type="date" name="due-date" id="due-date" class="due-date-input">
+                    <input type="date" name="due-date" id="due-date" class="due-date-input-edit">
                 </div>
                 <div class="project-name">
                     <input type="text" name="project-name" id="project-name" placeholder="Your project name" list="project-list" disabled>
@@ -162,11 +164,11 @@
                 <div class="priority-edit">
                     <p>Priority:</p>
                     <label for="priority-low">Low</label>
-                    <input class="priority-low" type="radio" name="priority" id="priority-low" value="low">
+                    <input class="priority-edit" type="radio" name="priority" id="priority-edit-low" value="low">
                     <label for="priority-medium">Medium</label>
-                    <input type="radio" name="priority" id="priority-medium" value="medium">
+                    <input class="priority-edit" type="radio" name="priority" id="priority-edit-medium" value="medium">
                     <label for="priority-high">High</label>
-                    <input type="radio" name="priority" id="priority-high" value="high">
+                    <input class="priority-edit" type="radio" name="priority" id="priority-edit-high" value="high">
                 </div>
                 <button class="submit-btn">Edit</button>
             </div>
