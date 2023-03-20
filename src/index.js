@@ -29,16 +29,6 @@ manageTasks().deleteTask();
 manageTasks().openEditForm();
 manageTasks().closeEditForm();
 
-// // a template to make links work
-// const sidebarList = document.querySelector('.sidebar-list');
-
-// sidebarList.addEventListener('click', (e) => {
-//     console.log(e.target.text);
-//     if (e.target.text === 'Home') {
-//         mainTasks.appendChild(tasksFactory('Privet'));
-//     }
-// })
-
 // display the date in the header
 const today = fns.format(new Date(), "EEEE, MMM d y");
 const dateDisplay = document.querySelector(".today-date");
@@ -71,13 +61,6 @@ bgForm.addEventListener("keydown", (e) => {
   }
 });
 
-// edit form
-// manageTasks().openEditForm();
-// manageTasks().closeEditForm();
-
-
-
-
 // working links in pop-up form
 const sidebarListForm = document.querySelector(".sidebar-list-form");
 
@@ -101,34 +84,36 @@ sidebarListForm.addEventListener("click", (e) => {
   }
 });
 
-
-// hide create and delete tasks in IIFE module?
-// delete targeted task
-// function deleteTask() {
-//   document.querySelectorAll(".task-delete").forEach((btn) =>
-//     btn.addEventListener("click", (e) => {
-//       mainTasks.removeChild(e.target.parentElement.parentElement);
-//     })
-//   );
-// }
-// deleteTask();
-
 // create tasks
+let tasksList = [];
+tasksList = tasksList.concat(defaultToDos);
+console.log(tasksList);
 const submitBtn = document.querySelector('.submit-btn');
 
 submitBtn.addEventListener('click', () => {
   if (mainTasks.childNodes.length === 0) {
     mainTasks.appendChild(tasksFactory());
+    tasksList.push(tasksFactory())
   } else {
     mainTasks.insertBefore(tasksFactory(), mainTasks.childNodes[0]);
+    tasksList.push(tasksFactory());
   }
   bgForm.style.display = "none";
   manageTasks().deleteTask();
   manageTasks().openEditForm();
   manageTasks().closeEditForm();
+  console.log(tasksList);
 })
 
+// a template to make links work
+const sidebarList = document.querySelector('.sidebar-list');
 
+sidebarList.addEventListener('click', (e) => {
+    console.log(e.target.text);
+    if (e.target.text === 'Home') {
+      
+    }
+})
 
 
 
