@@ -117,7 +117,11 @@ sidebarListForm.addEventListener("click", (e) => {
 const submitBtn = document.querySelector('.submit-btn');
 
 submitBtn.addEventListener('click', () => {
-  mainTasks.appendChild(tasksFactory());
+  if (mainTasks.childNodes.length === 0) {
+    mainTasks.appendChild(tasksFactory());
+  } else {
+    mainTasks.insertBefore(tasksFactory(), mainTasks.childNodes[0]);
+  }
   bgForm.style.display = "none";
   manageTasks().deleteTask();
   manageTasks().openEditForm();
