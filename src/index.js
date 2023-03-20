@@ -19,9 +19,9 @@ const appendChildren = (parent, children) => {
 };
 
 const defaultToDos = [
-  createDefaultToDos("medium", "pay rent", "2023-03-25", "transfer on a bank account"),
-  createDefaultToDos("low", "buy a cake", "2023-04-04", "go to Fika for the birthday cake"),
-  createDefaultToDos("high", "job interview", "2023-03-23", "work on soft skills prior to the interview")
+  createDefaultToDos("medium", "pay rent", "2023-03-20", "transfer on a bank account"),
+  createDefaultToDos("low", "buy a cake", "2023-03-25", "go to Fika for the birthday cake"),
+  createDefaultToDos("high", "job interview", "2023-03-31", "work on soft skills prior to the interview")
 ];
 
 appendChildren(mainTasks, defaultToDos);
@@ -69,7 +69,7 @@ sidebarListForm.addEventListener("click", (e) => {
   if (e.target.textContent === "TO-DO") {
     document.querySelector(".note-form").style =
       "transform: scale(1); font-weight: 400;";
-    document.querySelector(".new-note-form").style.display = "none";
+    document.querySelector(".new-console.log(tasksList);note-form").style.display = "none";
     document.querySelector(".new-task-form").style.display = "flex";
     document.querySelector(".todo-form").style =
       "transform: scale(1.1); font-weight: 700;";
@@ -87,7 +87,7 @@ sidebarListForm.addEventListener("click", (e) => {
 // create tasks
 let tasksList = [];
 tasksList = tasksList.concat(defaultToDos);
-console.log(tasksList);
+// console.log(tasksList[0].childNodes[2].innerText);
 const submitBtn = document.querySelector('.submit-btn');
 
 submitBtn.addEventListener('click', () => {
@@ -105,14 +105,67 @@ submitBtn.addEventListener('click', () => {
   console.log(tasksList);
 })
 
+// create an array with sorted lists of tasks today/week/month
+
+const sortTasks = () => {
+  const sortedTasksList = [];
+  const todayTasks = [];
+  const weekTasks = [];
+  const monthTasks = [];
+  // eslint-disable-next-line guard-for-in, no-restricted-syntax
+  for (const i in tasksList) {
+    let formatedDate = Date.parse(tasksList[i].childNodes[2].innerText);
+    formatedDate = fns.format(new Date(formatedDate), 'yyyy-MM-dd');
+    formatedDate = fns.parseISO(formatedDate);
+    if (fns.isToday(formatedDate)) {
+      todayTasks.push(tasksList[i]);
+    }
+    if (fns.isThisWeek(formatedDate)) {
+      weekTasks.push(tasksList[i]);
+    }
+    if (fns.isThisMonth(formatedDate)) {
+      monthTasks.push(tasksList[i]);
+    }
+  }
+  sortedTasksList.push(todayTasks, weekTasks, monthTasks);
+  
+  return sortedTasksList;
+}
+
+// console.log(sortTasks());
+
 // a template to make links work
+const removeChildren = (parent) => {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
+
 const sidebarList = document.querySelector('.sidebar-list');
 
 sidebarList.addEventListener('click', (e) => {
-    console.log(e.target.text);
-    if (e.target.text === 'Home') {
-      
-    }
+  const sortedTasksList = sortTasks();
+
+  switch(e.target.classList[1]) {
+    case 'home-page':
+      removeChildren(mainTasks);
+      appendChildren(mainTasks, tasksList);
+      break;
+    case 'today-page':
+      removeChildren(mainTasks);
+      appendChildren(mainTasks, sortedTasksList[0]);
+      break;
+    case 'week-page':
+      removeChildren(mainTasks);
+      appendChildren(mainTasks, sortedTasksList[1]);
+      break;
+    case 'month-page':
+      removeChildren(mainTasks);
+      appendChildren(mainTasks, sortedTasksList[2]);
+      break;
+    default:
+      break;
+  }
 })
 
 
@@ -138,3 +191,12 @@ sidebarList.addEventListener('click', (e) => {
 //     console.log(document.querySelector('.task-title-form').value);
 // })
 
+// testing the date
+// eslint-disable-next-line no-restricted-syntax, guard-for-in
+// for (const i in tasksList) {
+//   let formatedDate = Date.parse(tasksList[i].childNodes[2].innerText);
+//   formatedDate = fns.format(new Date(formatedDate), 'yyyy-MM-dd');
+//   formatedDate = fns.parseISO(formatedDate);
+//   console.log(fns.isToday(formatedDate));
+// }
+// create an array with a sorted lists for each period of time
