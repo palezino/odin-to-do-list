@@ -1,4 +1,4 @@
-import { tasksFactory, manageTasks } from "./script-tasks";
+import { tasksFactory, manageTasks, createDefaultToDos } from "./script-tasks";
 
 const fns = require("date-fns");
 
@@ -17,6 +17,17 @@ const appendChildren = (parent, children) => {
     parent.appendChild(child);
   });
 };
+
+const defaultToDos = [
+  createDefaultToDos("medium", "pay rent", "2023-03-25", "transfer on a bank account"),
+  createDefaultToDos("low", "buy a cake", "2023-04-04", "go to Fika for the birthday cake"),
+  createDefaultToDos("high", "job interview", "2023-03-23", "work on soft skills prior to the interview")
+];
+
+appendChildren(mainTasks, defaultToDos);
+manageTasks().deleteTask();
+manageTasks().openEditForm();
+manageTasks().closeEditForm();
 
 // // a template to make links work
 // const sidebarList = document.querySelector('.sidebar-list');
