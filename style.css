@@ -103,7 +103,7 @@ a {
     opacity: .7;
 }
 
-.task-counter {
+.home-counter, .today-counter, .week-counter, .month-counter {
     background-color: #A6A6A6;
     color: #0D0D0D;
 
