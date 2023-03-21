@@ -5,13 +5,6 @@ const fns = require("date-fns");
 console.log("hello");
 const mainTasks = document.querySelector(".main-tasks");
 
-const createNewElement = (element, className, text = null) => {
-  const newElement = document.createElement(element);
-  newElement.classList.add(className);
-  newElement.innerText = text;
-  return newElement;
-};
-
 const appendChildren = (parent, children) => {
   children.forEach((child) => {
     parent.appendChild(child);
@@ -24,10 +17,10 @@ const defaultToDos = [
   createDefaultToDos("high", "job interview", "2023-03-31", "work on soft skills prior to the interview")
 ];
 
+// create an array with predefined todos
+let tasksList = [];
+tasksList = tasksList.concat(defaultToDos);
 appendChildren(mainTasks, defaultToDos);
-manageTasks().deleteTask();
-manageTasks().openEditForm();
-manageTasks().closeEditForm();
 
 // display the date in the header
 const today = fns.format(new Date(), "EEEE, MMM d y");
@@ -47,7 +40,6 @@ plusBtn.addEventListener("click", () => {
 const bgForm = document.querySelector(".bg-form");
 
 bgForm.addEventListener("click", (e) => {
-  // console.log(e.target.className);
   if (e.target.className === "bg-form" || e.target.className === "close-form") {
     bgForm.style.display = "none";
     document.querySelector(".task-edit-bg").style.display = "none";
@@ -55,7 +47,6 @@ bgForm.addEventListener("click", (e) => {
 });
 
 bgForm.addEventListener("keydown", (e) => {
-  // console.log(e.keyCode);
   if (e.keyCode === 27) {
     bgForm.style.display = "none";
   }
@@ -65,7 +56,6 @@ bgForm.addEventListener("keydown", (e) => {
 const sidebarListForm = document.querySelector(".sidebar-list-form");
 
 sidebarListForm.addEventListener("click", (e) => {
-  // console.log(e.target.textContent);
   if (e.target.textContent === "TO-DO") {
     document.querySelector(".note-form").style =
       "transform: scale(1); font-weight: 400;";
@@ -84,29 +74,7 @@ sidebarListForm.addEventListener("click", (e) => {
   }
 });
 
-// create tasks
-let tasksList = [];
-tasksList = tasksList.concat(defaultToDos);
-// console.log(tasksList[0].childNodes[2].innerText);
-const submitBtn = document.querySelector('.submit-btn');
-
-submitBtn.addEventListener('click', () => {
-  if (mainTasks.childNodes.length === 0) {
-    mainTasks.appendChild(tasksFactory());
-    tasksList.push(tasksFactory())
-  } else {
-    mainTasks.insertBefore(tasksFactory(), mainTasks.childNodes[0]);
-    tasksList.push(tasksFactory());
-  }
-  bgForm.style.display = "none";
-  manageTasks().deleteTask();
-  manageTasks().openEditForm();
-  manageTasks().closeEditForm();
-  console.log(tasksList);
-})
-
 // create an array with sorted lists of tasks today/week/month
-
 const sortTasks = () => {
   const sortedTasksList = [];
   const todayTasks = [];
@@ -128,13 +96,39 @@ const sortTasks = () => {
     }
   }
   sortedTasksList.push(todayTasks, weekTasks, monthTasks);
+  // display the amount of tasks in counters
+  document.querySelector('.home-counter').innerText = tasksList.length;
+  document.querySelector('.today-counter').innerText = sortedTasksList[0].length;
+  document.querySelector('.week-counter').innerText = sortedTasksList[1].length;
+  document.querySelector('.month-counter').innerText = sortedTasksList[2].length;
   
   return sortedTasksList;
 }
+sortTasks();
 
-// console.log(sortTasks());
+// create tasks
+const submitBtn = document.querySelector('.submit-btn');
 
-// a template to make links work
+submitBtn.addEventListener('click', () => {
+  if (mainTasks.childNodes.length === 0) {
+    mainTasks.appendChild(tasksFactory());
+    tasksList.push(tasksFactory())
+  } else {
+    mainTasks.insertBefore(tasksFactory(), mainTasks.childNodes[0]);
+    tasksList.push(tasksFactory());
+  }
+  bgForm.style.display = "none";
+  manageTasks().deleteTask();
+  manageTasks().openEditForm();
+  manageTasks().closeEditForm();
+  sortTasks();
+
+  console.log(tasksList);
+})
+
+// console.log(tasksList[0].childNodes[0].style.backgroundColor);
+
+// display home/today/week/month pages
 const removeChildren = (parent) => {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
@@ -145,29 +139,32 @@ const sidebarList = document.querySelector('.sidebar-list');
 
 sidebarList.addEventListener('click', (e) => {
   const sortedTasksList = sortTasks();
-
+  console.log(e.target)
   switch(e.target.classList[1]) {
     case 'home-page':
       removeChildren(mainTasks);
       appendChildren(mainTasks, tasksList);
+      // document.querySelector('.home-counter').innerText = tasksList.length
       break;
     case 'today-page':
       removeChildren(mainTasks);
       appendChildren(mainTasks, sortedTasksList[0]);
+      // document.querySelector('.today-counter').innerText = sortedTasksList[0].length
       break;
     case 'week-page':
       removeChildren(mainTasks);
       appendChildren(mainTasks, sortedTasksList[1]);
+      // document.querySelector('.week-counter').innerText = sortedTasksList[1].length
       break;
     case 'month-page':
       removeChildren(mainTasks);
       appendChildren(mainTasks, sortedTasksList[2]);
+      // document.querySelector('.month-counter').innerText = sortedTasksList[2].length
       break;
     default:
       break;
   }
 })
-
 
 
 // testing priority
