@@ -11,16 +11,41 @@ const appendChildren = (parent, children) => {
   });
 };
 
+const removeChildren = (parent) => {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
+
 const defaultToDos = [
-  createDefaultToDos("medium", "pay rent", "2023-03-20", "transfer on a bank account"),
+  createDefaultToDos("medium", "pay rent", "2023-03-29", "transfer on a bank account"),
   createDefaultToDos("low", "buy a cake", "2023-03-25", "go to Fika for the birthday cake"),
-  createDefaultToDos("high", "job interview", "2023-03-31", "work on soft skills prior to the interview")
+  createDefaultToDos("high", "job interview", "2023-03-31", "work on soft skills prior to the interview"),
+  createDefaultToDos("low", "go to gym", "2023-05-01", "do squats")
 ];
 
 // create an array with predefined todos
 let tasksList = [];
 tasksList = tasksList.concat(defaultToDos);
-appendChildren(mainTasks, defaultToDos);
+
+// create an array with sorted lists of tasks today/week/month
+const sortToLatestDate = (arr) => {
+    arr.sort((a, b) => {
+    let date1 = Date.parse(a.childNodes[2].innerText);
+    date1 = fns.format(new Date(date1), 'yyyy-MM-dd');
+    date1 = fns.parseISO(date1);
+    
+    let date2 = Date.parse(b.childNodes[2].innerText);
+    date2 = fns.format(new Date(date2), 'yyyy-MM-dd');
+    date2 = fns.parseISO(date2);
+
+    return date1 - date2;
+  });
+};
+
+sortToLatestDate(tasksList);
+
+appendChildren(mainTasks, tasksList);
 
 // display the date in the header
 const today = fns.format(new Date(), "EEEE, MMM d y");
@@ -74,7 +99,6 @@ sidebarListForm.addEventListener("click", (e) => {
   }
 });
 
-// create an array with sorted lists of tasks today/week/month
 const sortTasks = () => {
   const sortedTasksList = [];
   const todayTasks = [];
@@ -104,36 +128,37 @@ const sortTasks = () => {
   
   return sortedTasksList;
 }
+
 sortTasks();
 
 // create tasks
 const submitBtn = document.querySelector('.submit-btn');
 
 submitBtn.addEventListener('click', () => {
-  if (mainTasks.childNodes.length === 0) {
-    mainTasks.appendChild(tasksFactory());
-    tasksList.push(tasksFactory())
-  } else {
-    mainTasks.insertBefore(tasksFactory(), mainTasks.childNodes[0]);
-    tasksList.push(tasksFactory());
-  }
+  // if (mainTasks.childNodes.length === 0) {
+  //   mainTasks.appendChild(tasksFactory());
+  //   tasksList.push(tasksFactory())
+  // } else {
+  //   mainTasks.insertBefore(tasksFactory(), mainTasks.childNodes[0]);
+  //   tasksList.push(tasksFactory());
+  // }
+
+  // mainTasks.appendChild(tasksFactory());
+  removeChildren(mainTasks);
+  tasksList.push(tasksFactory());
+  sortToLatestDate(tasksList);
+  appendChildren(mainTasks, tasksList);
   bgForm.style.display = "none";
+
   manageTasks().deleteTask();
   manageTasks().openEditForm();
   manageTasks().closeEditForm();
   sortTasks();
-
-  console.log(tasksList);
-})
+});
 
 // console.log(tasksList[0].childNodes[0].style.backgroundColor);
 
 // display home/today/week/month pages
-const removeChildren = (parent) => {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
-}
 
 const sidebarList = document.querySelector('.sidebar-list');
 
