@@ -1,4 +1,4 @@
-import { tasksFactory, manageTasks, createDefaultToDos } from "./script-tasks";
+import { tasksFactory, manageTasks, createDefaultToDos, sortToLatestDate, sortTasks} from "./script-tasks";
 
 const fns = require("date-fns");
 
@@ -24,28 +24,23 @@ const defaultToDos = [
   createDefaultToDos("low", "go to gym", "2023-05-01", "do squats")
 ];
 
-// create an array with predefined todos
+// create an array with todos
 let tasksList = [];
-tasksList = tasksList.concat(defaultToDos);
+// tasksList = tasksList.concat(defaultToDos);
+// sort the array to the latest date and it to the DOM
+// sortToLatestDate(tasksList);
+// sortTasks(tasksList);
+// appendChildren(mainTasks, tasksList);
 
-// create an array with sorted lists of tasks today/week/month
-const sortToLatestDate = (arr) => {
-    arr.sort((a, b) => {
-    let date1 = Date.parse(a.childNodes[2].innerText);
-    date1 = fns.format(new Date(date1), 'yyyy-MM-dd');
-    date1 = fns.parseISO(date1);
-    
-    let date2 = Date.parse(b.childNodes[2].innerText);
-    date2 = fns.format(new Date(date2), 'yyyy-MM-dd');
-    date2 = fns.parseISO(date2);
+sortToLatestDate(defaultToDos);
+sortTasks(defaultToDos);
+appendChildren(mainTasks, defaultToDos);
+tasksList = [... mainTasks.childNodes];
 
-    return date1 - date2;
-  });
-};
 
-sortToLatestDate(tasksList);
-
-appendChildren(mainTasks, tasksList);
+manageTasks().deleteTask();
+manageTasks().openEditForm();
+manageTasks().closeEditForm();
 
 // display the date in the header
 const today = fns.format(new Date(), "EEEE, MMM d y");
@@ -53,7 +48,6 @@ const dateDisplay = document.querySelector(".today-date");
 dateDisplay.innerText = today;
 
 // open and close pop-up forms (create and edit)
-// create form
 const plusBtn = document.querySelector(".plus-btn");
 
 plusBtn.addEventListener("click", () => {
@@ -77,83 +71,26 @@ bgForm.addEventListener("keydown", (e) => {
   }
 });
 
-// working links in pop-up form
-const sidebarListForm = document.querySelector(".sidebar-list-form");
-
-sidebarListForm.addEventListener("click", (e) => {
-  if (e.target.textContent === "TO-DO") {
-    document.querySelector(".note-form").style =
-      "transform: scale(1); font-weight: 400;";
-    document.querySelector(".new-console.log(tasksList);note-form").style.display = "none";
-    document.querySelector(".new-task-form").style.display = "flex";
-    document.querySelector(".todo-form").style =
-      "transform: scale(1.1); font-weight: 700;";
-  }
-  if (e.target.textContent === "Note") {
-    document.querySelector(".todo-form").style =
-      "transform: scale(1); font-weight: 400;";
-    document.querySelector(".new-task-form").style.display = "none";
-    document.querySelector(".new-note-form").style.display = "flex";
-    document.querySelector(".note-form").style =
-      "transform: scale(1.1); font-weight: 700;";
-  }
-});
-
-const sortTasks = () => {
-  const sortedTasksList = [];
-  const todayTasks = [];
-  const weekTasks = [];
-  const monthTasks = [];
-  // eslint-disable-next-line guard-for-in, no-restricted-syntax
-  for (const i in tasksList) {
-    let formatedDate = Date.parse(tasksList[i].childNodes[2].innerText);
-    formatedDate = fns.format(new Date(formatedDate), 'yyyy-MM-dd');
-    formatedDate = fns.parseISO(formatedDate);
-    if (fns.isToday(formatedDate)) {
-      todayTasks.push(tasksList[i]);
-    }
-    if (fns.isThisWeek(formatedDate)) {
-      weekTasks.push(tasksList[i]);
-    }
-    if (fns.isThisMonth(formatedDate)) {
-      monthTasks.push(tasksList[i]);
-    }
-  }
-  sortedTasksList.push(todayTasks, weekTasks, monthTasks);
-  // display the amount of tasks in counters
-  document.querySelector('.home-counter').innerText = tasksList.length;
-  document.querySelector('.today-counter').innerText = sortedTasksList[0].length;
-  document.querySelector('.week-counter').innerText = sortedTasksList[1].length;
-  document.querySelector('.month-counter').innerText = sortedTasksList[2].length;
-  
-  return sortedTasksList;
-}
-
-sortTasks();
+// navigate links in edit form
+manageTasks().navigateEditForm();
 
 // create tasks
 const submitBtn = document.querySelector('.submit-btn');
 
 submitBtn.addEventListener('click', () => {
-  // if (mainTasks.childNodes.length === 0) {
-  //   mainTasks.appendChild(tasksFactory());
-  //   tasksList.push(tasksFactory())
-  // } else {
-  //   mainTasks.insertBefore(tasksFactory(), mainTasks.childNodes[0]);
-  //   tasksList.push(tasksFactory());
-  // }
-
-  // mainTasks.appendChild(tasksFactory());
-  removeChildren(mainTasks);
-  tasksList.push(tasksFactory());
+  mainTasks.appendChild(tasksFactory());
+  // removeChildren(mainTasks);
+  // tasksList.push(tasksFactory());
+  tasksList.splice(0, tasksList.length);
+  tasksList = [... mainTasks.childNodes];
   sortToLatestDate(tasksList);
-  appendChildren(mainTasks, tasksList);
+  sortTasks(tasksList);
+  // appendChildren(mainTasks, tasksList);
   bgForm.style.display = "none";
 
   manageTasks().deleteTask();
   manageTasks().openEditForm();
   manageTasks().closeEditForm();
-  sortTasks();
 });
 
 // console.log(tasksList[0].childNodes[0].style.backgroundColor);
@@ -163,8 +100,8 @@ submitBtn.addEventListener('click', () => {
 const sidebarList = document.querySelector('.sidebar-list');
 
 sidebarList.addEventListener('click', (e) => {
-  const sortedTasksList = sortTasks();
-  console.log(e.target)
+  const sortedTasksList = sortTasks(tasksList);
+  // console.log(e.target)
   switch(e.target.classList[1]) {
     case 'home-page':
       removeChildren(mainTasks);
@@ -190,6 +127,8 @@ sidebarList.addEventListener('click', (e) => {
       break;
   }
 })
+
+// console.log(mainTasks.childNodes, tasksList);
 
 
 // testing priority
