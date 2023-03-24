@@ -78,7 +78,7 @@ a {
 
 .sidebar-projects {
     padding: 0 2em;
-    overflow: scroll;
+    /* overflow: scroll; */
     
     display: flex;
     flex-direction: column;
