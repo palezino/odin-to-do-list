@@ -52,6 +52,7 @@ const plusBtn = document.querySelector(".plus-btn");
 
 plusBtn.addEventListener("click", () => {
   document.querySelector(".bg-form").style.display = "flex";
+  // document.querySelector('.new-task-form').appendChild(createNewTask());
   document.querySelector(".todo-form").style =
     "transform: scale(1.1); font-weight: 700;";
 });
@@ -127,6 +128,27 @@ sidebarList.addEventListener('click', (e) => {
       break;
   }
 })
+
+const enableProjectInput = () => {
+  const projectCheckbox = document.querySelector('#project-check');
+  const projectDataList = document.querySelector('#project-list');
+  projectCheckbox.addEventListener('click', () => {
+    if (projectCheckbox.checked) {
+      document.querySelector('#project-name').disabled = false;
+      document.querySelectorAll('.project-item-link').forEach((item) => {
+        const option = document.createElement('option');
+        option.setAttribute('value', '');
+        option.value = item.innerText;
+        option.innerText = item.innerText;
+        projectDataList.appendChild(option);
+      })
+    } else {
+      document.querySelector('#project-name').disabled = true;
+    }
+  })
+}
+
+enableProjectInput()
 
 // console.log(mainTasks.childNodes, tasksList);
 
