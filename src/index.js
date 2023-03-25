@@ -96,7 +96,7 @@ submitBtn.addEventListener('click', () => {
 
 // console.log(tasksList[0].childNodes[0].style.backgroundColor);
 
-// display home/today/week/month pages
+// navigate home/today/week/month pages
 
 const sidebarList = document.querySelector('.sidebar-list');
 
@@ -127,6 +127,7 @@ sidebarList.addEventListener('click', (e) => {
     default:
       break;
   }
+
 })
 
 // enables project input and adds existing suggestions
@@ -151,9 +152,11 @@ const enableProjectInput = () => {
 
 enableProjectInput()
 
-
-// console.log(mainTasks.childNodes, tasksList);
-
+// const textList = [];
+// document.querySelectorAll('.project-item-link').forEach(item => {
+//   textList.push(item.innerText);
+// })
+// console.log(textList);
 
 // testing priority
 
