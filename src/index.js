@@ -18,10 +18,10 @@ const removeChildren = (parent) => {
 }
 
 const defaultToDos = [
-  createDefaultToDos("medium", "pay rent", "2023-03-29", "transfer on a bank account"),
+  createDefaultToDos("medium", "pay rent", "2023-03-29", "transfer on a bank account", 'Gym'),
   createDefaultToDos("low", "buy a cake", "2023-03-25", "go to Fika for the birthday cake"),
   createDefaultToDos("high", "job interview", "2023-03-31", "work on soft skills prior to the interview"),
-  createDefaultToDos("low", "go to gym", "2023-05-01", "do squats")
+  createDefaultToDos("low", "go to gym", "2023-05-01", "do squats", 'Gym')
 ];
 
 // create an array with todos
@@ -152,13 +152,18 @@ const enableProjectInput = () => {
 
 enableProjectInput()
 
-// const textList = [];
-// document.querySelectorAll('.project-item-link').forEach(item => {
-//   textList.push(item.innerText);
-// })
-// console.log(textList);
-
-// testing priority
+document.querySelector('.sidebar-projects').addEventListener('click', (e) => {
+    console.log(e.target.classList[1]);
+    const projectTasks = [];
+    document.querySelectorAll('.task-project').forEach(item => {
+      if (item.innerText === e.target.classList[1]) {
+        projectTasks.push(item.parentElement);
+      }
+      removeChildren(mainTasks);
+      appendChildren(mainTasks, projectTasks);
+    })
+});
+console.log(document.querySelectorAll('.task-project'))
 
 // submitBtn.addEventListener('click', () => {
 //     document.querySelectorAll('.priority-input').forEach((radioBtn) => {
