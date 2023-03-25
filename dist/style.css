@@ -518,6 +518,10 @@ textarea:focus {
     border-radius: 8px;
 }
 
+#project-name-edit {
+    width: 16.1em;
+}
+
 .priority-submit-edit {
     display: flex;
     justify-content: space-between;

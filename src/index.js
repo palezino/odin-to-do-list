@@ -129,6 +129,7 @@ sidebarList.addEventListener('click', (e) => {
   }
 })
 
+// enables project input and adds existing suggestions
 const enableProjectInput = () => {
   const projectCheckbox = document.querySelector('#project-check');
   const projectDataList = document.querySelector('#project-list');
@@ -149,6 +150,7 @@ const enableProjectInput = () => {
 }
 
 enableProjectInput()
+
 
 // console.log(mainTasks.childNodes, tasksList);
 
