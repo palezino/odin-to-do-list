@@ -1,4 +1,10 @@
-import { tasksFactory, manageTasks, createDefaultToDos, sortToLatestDate, sortTasks} from "./script-tasks";
+import {
+  tasksFactory,
+  manageTasks,
+  createDefaultToDos,
+  sortToLatestDate,
+  sortTasks,
+} from "./script-tasks";
 
 const fns = require("date-fns");
 
@@ -15,13 +21,30 @@ const removeChildren = (parent) => {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
   }
-}
+};
 
 const defaultToDos = [
-  createDefaultToDos("medium", "pay rent", "2023-03-29", "transfer on a bank account", 'Gym'),
-  createDefaultToDos("low", "buy a cake", "2023-03-25", "go to Fika for the birthday cake"),
-  createDefaultToDos("high", "job interview", "2023-03-31", "work on soft skills prior to the interview"),
-  createDefaultToDos("low", "go to gym", "2023-05-01", "do squats", 'Gym')
+  createDefaultToDos(
+    "medium",
+    "buy new shoes",
+    "2023-03-29",
+    "buy shoes for workout",
+    "Gym"
+  ),
+  createDefaultToDos(
+    "low",
+    "buy a cake",
+    "2023-03-25",
+    "go to Fika for the birthday cake"
+  ),
+  createDefaultToDos(
+    "high",
+    "job interview",
+    "2023-03-31",
+    "work on soft skills prior to the interview",
+    "Study"
+  ),
+  createDefaultToDos("low", "go to gym", "2023-05-01", "do squats and push-ups", "Gym"),
 ];
 
 // create an array with todos
@@ -35,8 +58,7 @@ let tasksList = [];
 sortToLatestDate(defaultToDos);
 sortTasks(defaultToDos);
 appendChildren(mainTasks, defaultToDos);
-tasksList = [... mainTasks.childNodes];
-
+tasksList = [...mainTasks.childNodes];
 
 manageTasks().deleteTask();
 manageTasks().openEditForm();
@@ -76,14 +98,14 @@ bgForm.addEventListener("keydown", (e) => {
 manageTasks().navigateEditForm();
 
 // create tasks
-const submitBtn = document.querySelector('.submit-btn');
+const submitBtn = document.querySelector(".submit-btn");
 
-submitBtn.addEventListener('click', () => {
+submitBtn.addEventListener("click", () => {
   mainTasks.appendChild(tasksFactory());
   // removeChildren(mainTasks);
   // tasksList.push(tasksFactory());
   tasksList.splice(0, tasksList.length);
-  tasksList = [... mainTasks.childNodes];
+  tasksList = [...mainTasks.childNodes];
   sortToLatestDate(tasksList);
   sortTasks(tasksList);
   // appendChildren(mainTasks, tasksList);
@@ -98,28 +120,28 @@ submitBtn.addEventListener('click', () => {
 
 // navigate home/today/week/month pages
 
-const sidebarList = document.querySelector('.sidebar-list');
+const sidebarList = document.querySelector(".sidebar-list");
 
-sidebarList.addEventListener('click', (e) => {
+sidebarList.addEventListener("click", (e) => {
   const sortedTasksList = sortTasks(tasksList);
   // console.log(e.target)
-  switch(e.target.classList[1]) {
-    case 'home-page':
+  switch (e.target.classList[1]) {
+    case "home-page":
       removeChildren(mainTasks);
       appendChildren(mainTasks, tasksList);
       // document.querySelector('.home-counter').innerText = tasksList.length
       break;
-    case 'today-page':
+    case "today-page":
       removeChildren(mainTasks);
       appendChildren(mainTasks, sortedTasksList[0]);
       // document.querySelector('.today-counter').innerText = sortedTasksList[0].length
       break;
-    case 'week-page':
+    case "week-page":
       removeChildren(mainTasks);
       appendChildren(mainTasks, sortedTasksList[1]);
       // document.querySelector('.week-counter').innerText = sortedTasksList[1].length
       break;
-    case 'month-page':
+    case "month-page":
       removeChildren(mainTasks);
       appendChildren(mainTasks, sortedTasksList[2]);
       // document.querySelector('.month-counter').innerText = sortedTasksList[2].length
@@ -127,43 +149,55 @@ sidebarList.addEventListener('click', (e) => {
     default:
       break;
   }
-
-})
+});
 
 // enables project input and adds existing suggestions
 const enableProjectInput = () => {
-  const projectCheckbox = document.querySelector('#project-check');
-  const projectDataList = document.querySelector('#project-list');
-  projectCheckbox.addEventListener('click', () => {
+  const projectCheckbox = document.querySelector("#project-check");
+  const projectDataList = document.querySelector("#project-list");
+  projectCheckbox.addEventListener("click", () => {
     if (projectCheckbox.checked) {
-      document.querySelector('#project-name').disabled = false;
-      document.querySelectorAll('.project-item-link').forEach((item) => {
-        const option = document.createElement('option');
-        option.setAttribute('value', '');
+      document.querySelector("#project-name").disabled = false;
+      document.querySelectorAll(".project-item-link").forEach((item) => {
+        const option = document.createElement("option");
+        option.setAttribute("value", "");
         option.value = item.innerText;
         option.innerText = item.innerText;
         projectDataList.appendChild(option);
-      })
+      });
     } else {
-      document.querySelector('#project-name').disabled = true;
+      document.querySelector("#project-name").disabled = true;
+    }
+  });
+};
+
+enableProjectInput();
+
+const sortTasksByProj = () => {
+  const sortedProj = [];
+  // eslint-disable-next-line guard-for-in, no-restricted-syntax
+  for (const i in tasksList) {
+    const proj = [tasksList[i].childNodes[6].innerText, tasksList[i]];
+    sortedProj.push(proj);
+  }
+  return sortedProj;
+};
+
+// navigate among projects
+document.querySelector('.sidebar-projects').addEventListener('click', (e) => {
+  const projectsList = sortTasksByProj();
+  const sortedProjects = [];
+  projectsList.forEach(item => {
+    if (item[0] === e.target.innerText) {
+      sortedProjects.push(item[1])
+      removeChildren(mainTasks);
     }
   })
-}
-
-enableProjectInput()
-
-document.querySelector('.sidebar-projects').addEventListener('click', (e) => {
-    console.log(e.target.classList[1]);
-    const projectTasks = [];
-    document.querySelectorAll('.task-project').forEach(item => {
-      if (item.innerText === e.target.classList[1]) {
-        projectTasks.push(item.parentElement);
-      }
-      removeChildren(mainTasks);
-      appendChildren(mainTasks, projectTasks);
-    })
+  appendChildren(mainTasks, sortedProjects);
 });
-console.log(document.querySelectorAll('.task-project'))
+
+
+// console.log(sortTasksByProj())
 
 // submitBtn.addEventListener('click', () => {
 //     document.querySelectorAll('.priority-input').forEach((radioBtn) => {
