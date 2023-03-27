@@ -101,6 +101,7 @@ a {
 
 .project-item:hover {
     opacity: .7;
+    cursor: pointer;
 }
 
 .home-counter, .today-counter, .week-counter, .month-counter {
@@ -556,4 +557,19 @@ textarea:focus {
     align-self: flex-end;
     font-size: .9rem;
     color: #0D0D0D;
+}
+
+.submit-btn-edit {
+    border: none;
+    border-radius: 10px;
+    padding: .5em 1.2em;
+
+    background-color: #D9D9D9;
+    color: #0D0D0D;
+    font-family: 'Inter', sans-serif;
+}
+
+.submit-btn-edit:hover {
+    cursor: pointer;
+    opacity: .7;
 }
