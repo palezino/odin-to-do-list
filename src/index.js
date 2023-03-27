@@ -145,9 +145,18 @@ submitBtn.addEventListener("click", () => {
           taskPriority = radioBtn.value;
         }
     })
+    
+    // khe khe 
+    mainTasks.removeChild(taskToBeEdited[5]);
+    tasksList.splice(0, tasksList.length);
+    tasksList = [...mainTasks.childNodes];
+    tasksList.push(createDefaultToDos(taskPriority, taskTitle, taskDate, taskDetails, taskProject));
+    sortToLatestDate(tasksList);
+    sortTasks(tasksList);
+    appendChildren(mainTasks, tasksList);
+    // khe khe
 
-    document.querySelector(".main-tasks").removeChild(taskToBeEdited[5]);
-    document.querySelector(".main-tasks").appendChild(createDefaultToDos(taskPriority, taskTitle, taskDate, taskDetails, taskProject));
+    // mainTasks.appendChild(createDefaultToDos(taskPriority, taskTitle, taskDate, taskDetails, taskProject));
     document.querySelector(".task-edit-bg").style.display = "none";
 
     manageTasks().deleteTask();
