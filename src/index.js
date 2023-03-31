@@ -4,7 +4,9 @@ import {
   createDefaultToDos,
   sortToLatestDate,
   sortTasks,
-  sortTasksByProj
+  sortTasksByProj,
+  enableProjectInput,
+  enableEditProjectInput
 } from "./script-tasks";
 
 const fns = require("date-fns");
@@ -146,7 +148,6 @@ submitBtn.addEventListener("click", () => {
         }
     })
     
-    // khe khe 
     mainTasks.removeChild(taskToBeEdited[5]);
     tasksList.splice(0, tasksList.length);
     tasksList = [...mainTasks.childNodes];
@@ -154,7 +155,7 @@ submitBtn.addEventListener("click", () => {
     sortToLatestDate(tasksList);
     sortTasks(tasksList);
     appendChildren(mainTasks, tasksList);
-    // khe khe
+    
 
     // mainTasks.appendChild(createDefaultToDos(taskPriority, taskTitle, taskDate, taskDetails, taskProject));
     document.querySelector(".task-edit-bg").style.display = "none";
@@ -199,27 +200,10 @@ sidebarList.addEventListener("click", (e) => {
   }
 });
 
-// enables project input and adds existing suggestions
-const enableProjectInput = () => {
-  const projectCheckbox = document.querySelector("#project-check");
-  const projectDataList = document.querySelector("#project-list");
-  projectCheckbox.addEventListener("click", () => {
-    if (projectCheckbox.checked) {
-      document.querySelector("#project-name").disabled = false;
-      document.querySelectorAll(".project-item-link").forEach((item) => {
-        const option = document.createElement("option");
-        option.setAttribute("value", "");
-        option.value = item.innerText;
-        option.innerText = item.innerText;
-        projectDataList.appendChild(option);
-      });
-    } else {
-      document.querySelector("#project-name").disabled = true;
-    }
-  });
-};
 
+// checkbox for project input
 enableProjectInput();
+enableEditProjectInput();
 
 // navigate among projects
 document.querySelector('.sidebar-projects').addEventListener('click', (e) => {
