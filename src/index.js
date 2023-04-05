@@ -64,7 +64,7 @@ appendChildren(mainTasks, defaultToDos);
 tasksList = [...mainTasks.childNodes];
 
 manageTasks().deleteTask();
-manageTasks().openEditForm();
+// manageTasks().openEditForm();
 manageTasks().closeEditForm();
 
 // display the date in the header
@@ -117,20 +117,38 @@ submitBtn.addEventListener("click", () => {
   bgForm.style.display = "none";
 
   manageTasks().deleteTask();
-  manageTasks().openEditForm();
+  // manageTasks().openEditForm();
   manageTasks().closeEditForm();
 });
+
+// try to use MutationObserver to monitor the changes in mainTasks and call 'querySelectorAll' on each mutation
+// open edit form
+let taskToBeEdited;
+// let taskEditBtns = document.querySelectorAll(".task-edit");
+// taskEditBtns.forEach((btn) => btn.addEventListener('click', (e) => {
+//   console.log(e.target)
+//   taskToBeEdited = manageTasks().openEditForm(e);
+//   console.log(taskToBeEdited);
+// }));
+mainTasks.addEventListener('click', (e) => {
+  console.log(e.target)
+  if (e.target.alt === 'edit') {
+    taskToBeEdited = manageTasks().openEditForm(e);
+    console.log(taskToBeEdited);
+  }
+});
+
 
 // edit a task
 (() => {
   const editButton = document.querySelector('.submit-btn-edit');
-  const taskToBeEdited = manageTasks().openEditForm();
+  // const taskToBeEdited = manageTasks().openEditForm();
   editButton.addEventListener('click', () => {
     // existing values
     let taskTitle = taskToBeEdited[0];
     let taskDetails = taskToBeEdited[1]
     let taskDate = fns.format(new Date(taskToBeEdited[2]), "EEEE, MMM d y");
-    let taskProject = taskToBeEdited[3]
+    let taskProject = taskToBeEdited[3];
     let taskPriority = taskToBeEdited[4];
     // edited inputs
     const editTaskTitle = document.querySelector('.task-title-edit');
@@ -147,7 +165,8 @@ submitBtn.addEventListener("click", () => {
           taskPriority = radioBtn.value;
         }
     })
-    
+    // console.log(taskToBeEdited)
+    // console.log(mainTasks.childNodes)
     mainTasks.removeChild(taskToBeEdited[5]);
     tasksList.splice(0, tasksList.length);
     tasksList = [...mainTasks.childNodes];
@@ -161,7 +180,7 @@ submitBtn.addEventListener("click", () => {
     document.querySelector(".task-edit-bg").style.display = "none";
 
     manageTasks().deleteTask();
-    manageTasks().openEditForm();
+    // manageTasks().openEditForm();
     manageTasks().closeEditForm();
 
   })
@@ -217,6 +236,8 @@ document.querySelector('.sidebar-projects').addEventListener('click', (e) => {
   })
   appendChildren(mainTasks, sortedProjects);
 });
+
+
 
 // manageTasks().editForm()
 
