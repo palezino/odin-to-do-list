@@ -63,7 +63,7 @@ sortTasks(defaultToDos);
 appendChildren(mainTasks, defaultToDos);
 tasksList = [...mainTasks.childNodes];
 
-manageTasks().deleteTask();
+// manageTasks().deleteTask();
 // manageTasks().openEditForm();
 manageTasks().closeEditForm();
 
@@ -116,7 +116,7 @@ submitBtn.addEventListener("click", () => {
   appendChildren(mainTasks, tasksList);
   bgForm.style.display = "none";
 
-  manageTasks().deleteTask();
+  // manageTasks().deleteTask();
   // manageTasks().openEditForm();
   manageTasks().closeEditForm();
 });
@@ -135,6 +135,9 @@ mainTasks.addEventListener('click', (e) => {
   if (e.target.alt === 'edit') {
     taskToBeEdited = manageTasks().openEditForm(e);
     console.log(taskToBeEdited);
+  }
+  if (e.target.alt === 'delete') {
+    manageTasks().deleteTask(e);
   }
 });
 
@@ -179,7 +182,7 @@ mainTasks.addEventListener('click', (e) => {
     // mainTasks.appendChild(createDefaultToDos(taskPriority, taskTitle, taskDate, taskDetails, taskProject));
     document.querySelector(".task-edit-bg").style.display = "none";
 
-    manageTasks().deleteTask();
+    // manageTasks().deleteTask();
     // manageTasks().openEditForm();
     manageTasks().closeEditForm();
 
