@@ -65,7 +65,7 @@ tasksList = [...mainTasks.childNodes];
 
 // manageTasks().deleteTask();
 // manageTasks().openEditForm();
-manageTasks().closeEditForm();
+// manageTasks().closeEditForm();
 
 // display the date in the header
 const today = fns.format(new Date(), "EEEE, MMM d y");
@@ -118,18 +118,11 @@ submitBtn.addEventListener("click", () => {
 
   // manageTasks().deleteTask();
   // manageTasks().openEditForm();
-  manageTasks().closeEditForm();
+  // manageTasks().closeEditForm();
 });
 
-// try to use MutationObserver to monitor the changes in mainTasks and call 'querySelectorAll' on each mutation
 // open edit form
 let taskToBeEdited;
-// let taskEditBtns = document.querySelectorAll(".task-edit");
-// taskEditBtns.forEach((btn) => btn.addEventListener('click', (e) => {
-//   console.log(e.target)
-//   taskToBeEdited = manageTasks().openEditForm(e);
-//   console.log(taskToBeEdited);
-// }));
 mainTasks.addEventListener('click', (e) => {
   console.log(e.target)
   if (e.target.alt === 'edit') {
@@ -141,6 +134,16 @@ mainTasks.addEventListener('click', (e) => {
   }
 });
 
+// close edit form
+const taskEditForm = document.querySelector(".task-edit-bg");
+taskEditForm.addEventListener('click', (e) => {
+  if (
+    e.target.className === "task-edit-bg" ||
+    e.target.className === "close-edit"
+  ) {
+    taskEditForm.style.display = "none";
+  }
+});
 
 // edit a task
 (() => {
@@ -184,7 +187,7 @@ mainTasks.addEventListener('click', (e) => {
 
     // manageTasks().deleteTask();
     // manageTasks().openEditForm();
-    manageTasks().closeEditForm();
+    // manageTasks().closeEditForm();
 
   })
 })();
