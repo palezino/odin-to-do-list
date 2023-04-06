@@ -121,16 +121,18 @@ submitBtn.addEventListener("click", () => {
   // manageTasks().closeEditForm();
 });
 
-// open edit form
 let taskToBeEdited;
 mainTasks.addEventListener('click', (e) => {
   console.log(e.target)
+  // open edit form
   if (e.target.alt === 'edit') {
     taskToBeEdited = manageTasks().openEditForm(e);
     console.log(taskToBeEdited);
   }
+  // delete task, resort and update task counter
   if (e.target.alt === 'delete') {
-    manageTasks().deleteTask(e);
+    manageTasks().deleteTask(e, tasksList);
+    sortTasks(tasksList);
   }
 });
 
@@ -242,7 +244,6 @@ document.querySelector('.sidebar-projects').addEventListener('click', (e) => {
   })
   appendChildren(mainTasks, sortedProjects);
 });
-
 
 
 // manageTasks().editForm()
