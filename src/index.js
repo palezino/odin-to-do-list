@@ -123,13 +123,13 @@ submitBtn.addEventListener("click", () => {
 
 let taskToBeEdited;
 mainTasks.addEventListener('click', (e) => {
-  console.log(e.target)
+  // console.log(e.target)
   // open edit form
   if (e.target.alt === 'edit') {
     taskToBeEdited = manageTasks().openEditForm(e);
     console.log(taskToBeEdited);
   }
-  // delete task, resort and update task counter
+  // delete task, resort tasks, and update task counter
   if (e.target.alt === 'delete') {
     manageTasks().deleteTask(e, tasksList);
     sortTasks(tasksList);
@@ -244,6 +244,15 @@ document.querySelector('.sidebar-projects').addEventListener('click', (e) => {
   })
   appendChildren(mainTasks, sortedProjects);
 });
+
+
+// mark the task checked
+document.querySelectorAll('.task-title-checkbox').forEach((item) => {
+  item.addEventListener('click', (e) => {
+    manageTasks().markChecked(e);
+  });
+});
+
 
 
 // manageTasks().editForm()
