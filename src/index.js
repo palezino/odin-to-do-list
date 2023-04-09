@@ -6,7 +6,9 @@ import {
   sortTasks,
   sortTasksByProj,
   enableProjectInput,
-  enableEditProjectInput
+  enableEditProjectInput,
+  openSummaryCard,
+  closeSumCard
 } from "./script-tasks";
 
 const fns = require("date-fns");
@@ -91,12 +93,6 @@ bgForm.addEventListener("click", (e) => {
   }
 });
 
-bgForm.addEventListener("keydown", (e) => {
-  if (e.keyCode === 27) {
-    bgForm.style.display = "none";
-  }
-});
-
 // navigate links in new task form
 manageTasks().navigateForm();
 
@@ -121,9 +117,16 @@ submitBtn.addEventListener("click", () => {
   // manageTasks().closeEditForm();
 });
 
+// manage tasks
 let taskToBeEdited;
 mainTasks.addEventListener('click', (e) => {
   // console.log(e.target)
+  // open task summary
+  if (e.target.className === 'task' || e.target.className === 'task-title' || e.target.className === 'task-title-checkbox') {
+    openSummaryCard();
+    document.querySelector('.task-sum-bg').style.display = 'flex';
+    closeSumCard();
+  }
   // open edit form
   if (e.target.alt === 'edit') {
     taskToBeEdited = manageTasks().openEditForm(e);
