@@ -253,6 +253,7 @@ document.querySelectorAll('.task-title-checkbox').forEach((item) => {
   });
 });
 
+// testing display summary when tapping on a task
 
 
 // manageTasks().editForm()
