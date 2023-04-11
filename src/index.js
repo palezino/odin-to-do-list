@@ -79,10 +79,19 @@ dateDisplay.innerText = today;
 const plusBtn = document.querySelector(".plus-btn");
 
 plusBtn.addEventListener("click", () => {
+  // clean new task form before displaying
+  document.querySelector('.task-title-form').value = '';
+  document.querySelector('#priority-low').checked = true;
+  document.querySelector('.due-date-input').value = '';
+  document.querySelector('.task-text-form').value = '';
+  document.querySelector('#project-check').checked = false;
+  document.querySelector('#project-name').disabled = true;
+  document.querySelector('#project-name').value = '';
+  // open the form
   document.querySelector(".bg-form").style.display = "flex";
-  // document.querySelector('.new-task-form').appendChild(createNewTask());
   document.querySelector(".todo-form").style =
     "transform: scale(1.1); font-weight: 700;";
+  
 });
 
 const bgForm = document.querySelector(".bg-form");
