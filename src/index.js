@@ -8,7 +8,8 @@ import {
   enableProjectInput,
   enableEditProjectInput,
   openSummaryCard,
-  closeSumCard
+  closeSumCard,
+  fillSumCard
 } from "./script-tasks";
 
 const fns = require("date-fns");
@@ -121,9 +122,11 @@ submitBtn.addEventListener("click", () => {
 let taskToBeEdited;
 mainTasks.addEventListener('click', (e) => {
   // console.log(e.target)
+  // const arr = ['Title', 'Details', 'Sunday, Apr 9 2023', 'Project', 'Low'];
   // open task summary
   if (e.target.className === 'task' || e.target.className === 'task-title' || e.target.className === 'task-title-checkbox') {
-    openSummaryCard();
+    console.log(fillSumCard(e))
+    openSummaryCard(fillSumCard(e));
     document.querySelector('.task-sum-bg').style.display = 'flex';
     closeSumCard();
   }
