@@ -602,7 +602,7 @@ textarea:focus {
 
     display: flex;
     flex-direction: column;
-    gap: .7em;
+    gap: 1em;
 }
 
 .sum-card-close {
