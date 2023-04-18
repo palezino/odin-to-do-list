@@ -9,7 +9,8 @@ import {
   enableEditProjectInput,
   openSummaryCard,
   closeSumCard,
-  fillSumCard
+  fillSumCard,
+  deleteProjects
 } from "./script-tasks";
 
 const fns = require("date-fns");
@@ -33,24 +34,24 @@ const defaultToDos = [
   createDefaultToDos(
     "medium",
     "buy new shoes",
-    "2023-03-29",
+    "2023-04-29",
     "buy shoes for workout",
     "Gym"
   ),
   createDefaultToDos(
     "low",
     "buy a cake",
-    "2023-03-25",
+    "2023-04-25",
     "go to Fika for the birthday cake"
   ),
   createDefaultToDos(
     "high",
     "job interview",
-    "2023-03-31",
+    "2023-04-30",
     "work on soft skills prior to the interview",
     "Study"
   ),
-  createDefaultToDos("low", "go to gym", "2023-05-01", "do squats and push-ups", "Gym"),
+  createDefaultToDos("low", "go to gym", "2023-06-01", "do squats and push-ups", "Gym"),
 ];
 
 // create an array with todos
@@ -113,8 +114,9 @@ submitBtn.addEventListener("click", () => {
   // mainTasks.appendChild(tasksFactory());
   // removeChildren(mainTasks);
   // tasksList.push(tasksFactory());
-  tasksList.splice(0, tasksList.length);
-  tasksList = [...mainTasks.childNodes];
+  // console.log(tasksList)
+  // tasksList.splice(0, tasksList.length);
+  // tasksList = [...mainTasks.childNodes];
   tasksList.push(tasksFactory());
   
   sortToLatestDate(tasksList);
@@ -148,6 +150,8 @@ mainTasks.addEventListener('click', (e) => {
   if (e.target.alt === 'delete') {
     manageTasks().deleteTask(e, tasksList);
     sortTasks(tasksList);
+    // check if "Project name" is not among the keys then delete the project
+    deleteProjects(tasksList);
   }
 });
 
@@ -209,8 +213,8 @@ taskEditForm.addEventListener('click', (e) => {
   })
 })();
 
-// navigate home/today/week/month pages
 
+// navigate home/today/week/month pages
 const sidebarList = document.querySelector(".sidebar-list");
 
 sidebarList.addEventListener("click", (e) => {
@@ -268,7 +272,9 @@ document.querySelectorAll('.task-title-checkbox').forEach((item) => {
   });
 });
 
-// testing display summary when tapping on a task
+// testing function to delete a project
+
+
 
 
 // manageTasks().editForm()
