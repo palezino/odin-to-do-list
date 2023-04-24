@@ -151,6 +151,13 @@ a {
 
 /* notes page */
 
+.main-notes {
+    padding: 1em;
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+
 .note {
     width: 30%;
     height: max-content;
@@ -394,7 +401,7 @@ textarea:focus {
     transform: scale(1.5);
 }
 
-.submit-btn {
+.submit-task-btn {
     border: none;
     border-radius: 10px;
     padding: .5em 1.2em;
@@ -404,7 +411,7 @@ textarea:focus {
     font-family: 'Inter', sans-serif;
 }
 
-.submit-btn:hover {
+.submit-task-btn:hover {
     cursor: pointer;
     opacity: .7;
 }
@@ -449,8 +456,33 @@ textarea:focus {
     display: none;
 }
 
-.new-note-form .submit-btn {
+.new-note-form .submit-note-btn {
     align-self: flex-end;
+}
+
+.note-title-form {
+    font-size: 1.3rem;
+    font-weight: bold;
+
+}
+
+.note-text-form {
+    font-size: 1rem;
+}
+
+.submit-note-btn {
+    border: none;
+    border-radius: 10px;
+    padding: .5em 1.2em;
+
+    background-color: #D9D9D9;
+    color: #0D0D0D;
+    font-family: 'Inter', sans-serif;
+}
+
+.submit-note-btn:hover {
+    cursor: pointer;
+    opacity: .7;
 }
 
 /* task edit form */
