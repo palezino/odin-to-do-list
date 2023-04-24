@@ -12,6 +12,7 @@ import {
   fillSumCard,
   deleteProjects
 } from "./script-tasks";
+import { createDefaultNotes, notesFactory } from "./script-notes";
 
 const fns = require("date-fns");
 
@@ -52,6 +53,11 @@ const defaultToDos = [
     "Study"
   ),
   createDefaultToDos("low", "go to gym", "2023-06-01", "do squats and push-ups", "Gym"),
+];
+
+const defaultNotes = [
+  createDefaultNotes('Movies to watch', 'Four rooms,\n Silverado,\n Inception'),
+  createDefaultNotes('Places to visit', 'Tokyo,\n Kyoto,\n Osaka')
 ];
 
 // create an array with todos
@@ -108,7 +114,7 @@ bgForm.addEventListener("click", (e) => {
 manageTasks().navigateForm();
 
 // create tasks
-const submitBtn = document.querySelector(".submit-btn");
+const submitBtn = document.querySelector(".submit-task-btn");
 
 submitBtn.addEventListener("click", () => {
   // mainTasks.appendChild(tasksFactory());
@@ -222,24 +228,41 @@ sidebarList.addEventListener("click", (e) => {
   // console.log(e.target)
   switch (e.target.classList[1]) {
     case "home-page":
+      if (mainTasks.classList[1] === 'main-notes') {
+        mainTasks.classList.toggle('main-notes');
+      }
       removeChildren(mainTasks);
       appendChildren(mainTasks, tasksList);
       // document.querySelector('.home-counter').innerText = tasksList.length
       break;
     case "today-page":
+      if (mainTasks.classList[1] === 'main-notes') {
+        mainTasks.classList.toggle('main-notes');
+      }
       removeChildren(mainTasks);
       appendChildren(mainTasks, sortedTasksList[0]);
       // document.querySelector('.today-counter').innerText = sortedTasksList[0].length
       break;
     case "week-page":
+      if (mainTasks.classList[1] === 'main-notes') {
+        mainTasks.classList.toggle('main-notes');
+      }
       removeChildren(mainTasks);
       appendChildren(mainTasks, sortedTasksList[1]);
       // document.querySelector('.week-counter').innerText = sortedTasksList[1].length
       break;
     case "month-page":
+      if (mainTasks.classList[1] === 'main-notes') {
+        mainTasks.classList.toggle('main-notes');
+      }
       removeChildren(mainTasks);
       appendChildren(mainTasks, sortedTasksList[2]);
       // document.querySelector('.month-counter').innerText = sortedTasksList[2].length
+      break;
+    case "notes-page":
+      removeChildren(mainTasks);
+      appendChildren(mainTasks, defaultNotes);
+      mainTasks.classList.toggle('main-notes');
       break;
     default:
       break;
@@ -253,6 +276,9 @@ enableEditProjectInput();
 
 // navigate among projects
 document.querySelector('.sidebar-projects').addEventListener('click', (e) => {
+  if (mainTasks.classList[1] === 'main-notes') {
+    mainTasks.classList.toggle('main-notes');
+  }
   const projectsList = sortTasksByProj(tasksList);
   const sortedProjects = [];
   projectsList.forEach(item => {
@@ -272,7 +298,16 @@ document.querySelectorAll('.task-title-checkbox').forEach((item) => {
   });
 });
 
-// testing function to delete a project
+// notes pages
+
+// create a note
+document.querySelector('.submit-note-btn').addEventListener('click', () => {
+  removeChildren(mainTasks);
+  appendChildren(mainTasks, defaultNotes);
+  mainTasks.appendChild(notesFactory());
+  mainTasks.classList.toggle('main-notes');
+  bgForm.style.display = "none";
+})
 
 
 
