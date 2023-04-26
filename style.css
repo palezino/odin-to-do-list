@@ -156,6 +156,13 @@ a {
     display: flex;
     gap: 1em;
     flex-wrap: wrap;
+
+    /* display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(6em, 1fr));
+    grid-auto-rows: minmax(180px, 0.5fr);
+    gap: 1em;
+    padding: 1em;
+    overflow: scroll; */
 }
 
 .note {
@@ -463,7 +470,6 @@ textarea:focus {
 .note-title-form {
     font-size: 1.3rem;
     font-weight: bold;
-
 }
 
 .note-text-form {
