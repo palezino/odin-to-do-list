@@ -12,7 +12,7 @@ import {
   fillSumCard,
   deleteProjects
 } from "./script-tasks";
-import { createDefaultNotes, notesFactory } from "./script-notes";
+import { createDefaultNotes, deleteNote, notesFactory } from "./script-notes";
 
 const fns = require("date-fns");
 
@@ -60,8 +60,13 @@ const defaultNotes = [
   createDefaultNotes('Places to visit', 'Tokyo,\n Kyoto,\n Osaka')
 ];
 
-// create an array with todos
+// an array with todos
 let tasksList = [];
+// an array with note
+let notesList = [];
+
+notesList = [...defaultNotes];
+
 // tasksList = tasksList.concat(defaultToDos);
 // sort the array to the latest date and it to the DOM
 // sortToLatestDate(tasksList);
@@ -260,9 +265,28 @@ sidebarList.addEventListener("click", (e) => {
       // document.querySelector('.month-counter').innerText = sortedTasksList[2].length
       break;
     case "notes-page":
+      if (!(mainTasks.classList[1] === 'main-notes')) {
+        mainTasks.classList.toggle('main-notes');
+      }
       removeChildren(mainTasks);
-      appendChildren(mainTasks, defaultNotes);
-      mainTasks.classList.toggle('main-notes');
+      // appendChildren(mainTasks, defaultNotes);
+      appendChildren(mainTasks, notesList);
+      // delete a note
+      document.querySelector('.main-notes').addEventListener('click', (event) => {
+        switch (event.target.classList[0]){
+          case 'delete-note':
+            deleteNote(event, notesList);
+            break;
+          default:
+            break;
+        }
+        // if (notesList.includes(event.target.parentElement)) {
+        //   document.querySelector(".main-tasks").removeChild(event.target.parentElement);
+        //   const index = notesList.indexOf(event.target.parentElement);
+        //   notesList.splice(index, 1);
+        // }
+      })
+      // mainTasks.classList.toggle('main-notes');
       break;
     default:
       break;
@@ -303,9 +327,13 @@ document.querySelectorAll('.task-title-checkbox').forEach((item) => {
 // create a note
 document.querySelector('.submit-note-btn').addEventListener('click', () => {
   removeChildren(mainTasks);
-  appendChildren(mainTasks, defaultNotes);
-  mainTasks.appendChild(notesFactory());
-  mainTasks.classList.toggle('main-notes');
+  // appendChildren(mainTasks, defaultNotes);
+  notesList.push(notesFactory());
+  appendChildren(mainTasks, notesList);
+  if (!(mainTasks.classList[1] === 'main-notes')) {
+    mainTasks.classList.toggle('main-notes');
+  }
+  // mainTasks.classList.toggle('main-notes');
   bgForm.style.display = "none";
 })
 
