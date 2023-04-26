@@ -273,18 +273,9 @@ sidebarList.addEventListener("click", (e) => {
       appendChildren(mainTasks, notesList);
       // delete a note
       document.querySelector('.main-notes').addEventListener('click', (event) => {
-        switch (event.target.classList[0]){
-          case 'delete-note':
-            deleteNote(event, notesList);
-            break;
-          default:
-            break;
+        if (event.target.classList[0] === 'delete-note') {
+          deleteNote(event, notesList);
         }
-        // if (notesList.includes(event.target.parentElement)) {
-        //   document.querySelector(".main-tasks").removeChild(event.target.parentElement);
-        //   const index = notesList.indexOf(event.target.parentElement);
-        //   notesList.splice(index, 1);
-        // }
       })
       // mainTasks.classList.toggle('main-notes');
       break;
@@ -336,7 +327,6 @@ document.querySelector('.submit-note-btn').addEventListener('click', () => {
   // mainTasks.classList.toggle('main-notes');
   bgForm.style.display = "none";
 })
-
 
 
 

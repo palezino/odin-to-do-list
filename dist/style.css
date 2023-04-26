@@ -187,8 +187,26 @@ a {
     margin-top: .5em;
     margin-bottom: 0;
 }
+/* textarea test */
+.note-title, .note-text {
+    padding: 0;
+    margin-top: .5em;
+    margin-bottom: 0;
+    font-size: 1.3rem;
+    color:#D9D9D9;
 
-.note p {
+    resize: none;
+    border: none;
+    background-color: transparent;
+    /* color: #0D0D0D; */
+    font-family: 'Inter', sans-serif;
+}
+
+.note-title:focus, .note-text:focus {
+    outline: none;
+}
+
+.note-text {
     font-size: 1rem;
     margin-bottom: 0;
 }
@@ -324,7 +342,7 @@ a {
     /* transform: scale(1.1); */
 }
 
-textarea {
+.task-title-form, .task-text-form, .note-title-form, .note-text-form, .task-title-edit, .task-text-edit {
     resize: none;
     border: none;
     background-color: transparent;
@@ -332,7 +350,7 @@ textarea {
     font-family: 'Inter', sans-serif;;
 }
 
-textarea:focus {
+.task-title-form:focus, .task-text-form:focus, .note-title-form:focus, .note-text-form:focus, .task-title-edit:focus, .task-text-edit:focus {
     outline: none;
 }
 
