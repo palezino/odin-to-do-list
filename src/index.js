@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import {
   tasksFactory,
   manageTasks,
@@ -14,7 +15,7 @@ import {
 } from "./script-tasks";
 import { createDefaultNotes, deleteNote, notesFactory } from "./script-notes";
 
-const fns = require("date-fns");
+// const fns = require("date-fns");
 
 console.log("hello");
 const mainTasks = document.querySelector(".main-tasks");
@@ -89,7 +90,7 @@ tasksList = [...mainTasks.childNodes];
 // manageTasks().closeEditForm();
 
 // display the date in the header
-const today = fns.format(new Date(), "EEEE, MMM d y");
+const today = format(new Date(), "EEEE, MMM d y");
 const dateDisplay = document.querySelector(".today-date");
 dateDisplay.innerText = today;
 
@@ -197,7 +198,7 @@ taskEditForm.addEventListener("click", (e) => {
     // existing values
     let taskTitle = taskToBeEdited[0];
     let taskDetails = taskToBeEdited[1];
-    let taskDate = fns.format(new Date(taskToBeEdited[2]), "EEEE, MMM d y");
+    let taskDate = format(new Date(taskToBeEdited[2]), "EEEE, MMM d y");
     let taskProject = taskToBeEdited[3];
     let taskPriority = taskToBeEdited[4];
     // edited inputs
@@ -208,7 +209,7 @@ taskEditForm.addEventListener("click", (e) => {
     // inserting edited values
     taskTitle = editTaskTitle.value;
     taskDetails = editTaskDetails.value;
-    taskDate = fns.format(new Date(editTaskDate.value), "EEEE, MMM d y");
+    taskDate = format(new Date(editTaskDate.value), "EEEE, MMM d y");
     taskProject = editTaskProj.value;
     document.querySelectorAll(".priority-edit").forEach((radioBtn) => {
       if (radioBtn.checked) {
