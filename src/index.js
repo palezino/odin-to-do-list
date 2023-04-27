@@ -304,8 +304,8 @@ sidebarList.addEventListener("click", (e) => {
 });
 
 // checkbox for project input
-enableProjectInput();
-enableEditProjectInput();
+enableProjectInput(tasksList);
+enableEditProjectInput(tasksList);
 
 // navigate among projects
 document.querySelector(".sidebar-projects").addEventListener("click", (e) => {
