@@ -10,7 +10,7 @@ import {
   openSummaryCard,
   closeSumCard,
   fillSumCard,
-  deleteProjects
+  deleteProjects,
 } from "./script-tasks";
 import { createDefaultNotes, deleteNote, notesFactory } from "./script-notes";
 
@@ -52,12 +52,18 @@ const defaultToDos = [
     "work on soft skills prior to the interview",
     "Study"
   ),
-  createDefaultToDos("low", "go to gym", "2023-06-01", "do squats and push-ups", "Gym"),
+  createDefaultToDos(
+    "low",
+    "go to gym",
+    "2023-06-01",
+    "do squats and push-ups",
+    "Gym"
+  ),
 ];
 
 const defaultNotes = [
-  createDefaultNotes('Movies to watch', 'Four rooms,\n Silverado,\n Inception'),
-  createDefaultNotes('Places to visit', 'Tokyo,\n Kyoto,\n Osaka')
+  createDefaultNotes("Movies to watch", "Four rooms, Silverado, Inception"),
+  createDefaultNotes("Places to visit", "Tokyo, Kyoto, Osaka"),
 ];
 
 // an array with todos
@@ -92,18 +98,17 @@ const plusBtn = document.querySelector(".plus-btn");
 
 plusBtn.addEventListener("click", () => {
   // clean new task form before displaying
-  document.querySelector('.task-title-form').value = '';
-  document.querySelector('#priority-low').checked = true;
-  document.querySelector('.due-date-input').value = '';
-  document.querySelector('.task-text-form').value = '';
-  document.querySelector('#project-check').checked = false;
-  document.querySelector('#project-name').disabled = true;
-  document.querySelector('#project-name').value = '';
+  document.querySelector(".task-title-form").value = "";
+  document.querySelector("#priority-low").checked = true;
+  document.querySelector(".due-date-input").value = "";
+  document.querySelector(".task-text-form").value = "";
+  document.querySelector("#project-check").checked = false;
+  document.querySelector("#project-name").disabled = true;
+  document.querySelector("#project-name").value = "";
   // open the form
   document.querySelector(".bg-form").style.display = "flex";
   document.querySelector(".todo-form").style =
     "transform: scale(1.1); font-weight: 700;";
-  
 });
 
 const bgForm = document.querySelector(".bg-form");
@@ -129,7 +134,7 @@ submitBtn.addEventListener("click", () => {
   // tasksList.splice(0, tasksList.length);
   // tasksList = [...mainTasks.childNodes];
   tasksList.push(tasksFactory());
-  
+
   sortToLatestDate(tasksList);
   sortTasks(tasksList);
   appendChildren(mainTasks, tasksList);
@@ -142,23 +147,27 @@ submitBtn.addEventListener("click", () => {
 
 // manage tasks
 let taskToBeEdited;
-mainTasks.addEventListener('click', (e) => {
+mainTasks.addEventListener("click", (e) => {
   // console.log(e.target)
   // const arr = ['Title', 'Details', 'Sunday, Apr 9 2023', 'Project', 'Low'];
   // open task summary
-  if (e.target.className === 'task' || e.target.className === 'task-title' || e.target.className === 'task-title-checkbox') {
-    console.log(fillSumCard(e))
+  if (
+    e.target.className === "task" ||
+    e.target.className === "task-title" ||
+    e.target.className === "task-title-checkbox"
+  ) {
+    console.log(fillSumCard(e));
     openSummaryCard(fillSumCard(e));
-    document.querySelector('.task-sum-bg').style.display = 'flex';
+    document.querySelector(".task-sum-bg").style.display = "flex";
     closeSumCard();
   }
   // open edit form
-  if (e.target.alt === 'edit') {
+  if (e.target.alt === "edit") {
     taskToBeEdited = manageTasks().openEditForm(e);
     console.log(taskToBeEdited);
   }
   // delete task, resort tasks, and update task counter
-  if (e.target.alt === 'delete') {
+  if (e.target.alt === "delete") {
     manageTasks().deleteTask(e, tasksList);
     sortTasks(tasksList);
     // check if "Project name" is not among the keys then delete the project
@@ -168,7 +177,7 @@ mainTasks.addEventListener('click', (e) => {
 
 // close edit form
 const taskEditForm = document.querySelector(".task-edit-bg");
-taskEditForm.addEventListener('click', (e) => {
+taskEditForm.addEventListener("click", (e) => {
   if (
     e.target.className === "task-edit-bg" ||
     e.target.className === "close-edit"
@@ -179,40 +188,47 @@ taskEditForm.addEventListener('click', (e) => {
 
 // edit a task
 (() => {
-  const editButton = document.querySelector('.submit-btn-edit');
+  const editButton = document.querySelector(".submit-btn-edit");
   // const taskToBeEdited = manageTasks().openEditForm();
-  editButton.addEventListener('click', () => {
+  editButton.addEventListener("click", () => {
     // existing values
     let taskTitle = taskToBeEdited[0];
-    let taskDetails = taskToBeEdited[1]
+    let taskDetails = taskToBeEdited[1];
     let taskDate = fns.format(new Date(taskToBeEdited[2]), "EEEE, MMM d y");
     let taskProject = taskToBeEdited[3];
     let taskPriority = taskToBeEdited[4];
     // edited inputs
-    const editTaskTitle = document.querySelector('.task-title-edit');
-    const editTaskDetails = document.querySelector('.task-text-edit');
-    const editTaskDate = document.querySelector('.due-date-input-edit');
-    const editTaskProj = document.querySelector('#project-name-edit');
+    const editTaskTitle = document.querySelector(".task-title-edit");
+    const editTaskDetails = document.querySelector(".task-text-edit");
+    const editTaskDate = document.querySelector(".due-date-input-edit");
+    const editTaskProj = document.querySelector("#project-name-edit");
     // inserting edited values
     taskTitle = editTaskTitle.value;
     taskDetails = editTaskDetails.value;
     taskDate = fns.format(new Date(editTaskDate.value), "EEEE, MMM d y");
     taskProject = editTaskProj.value;
-    document.querySelectorAll('.priority-edit').forEach((radioBtn) => {
-        if (radioBtn.checked) {
-          taskPriority = radioBtn.value;
-        }
-    })
+    document.querySelectorAll(".priority-edit").forEach((radioBtn) => {
+      if (radioBtn.checked) {
+        taskPriority = radioBtn.value;
+      }
+    });
     // console.log(taskToBeEdited)
     // console.log(mainTasks.childNodes)
     mainTasks.removeChild(taskToBeEdited[5]);
     tasksList.splice(0, tasksList.length);
     tasksList = [...mainTasks.childNodes];
-    tasksList.push(createDefaultToDos(taskPriority, taskTitle, taskDate, taskDetails, taskProject));
+    tasksList.push(
+      createDefaultToDos(
+        taskPriority,
+        taskTitle,
+        taskDate,
+        taskDetails,
+        taskProject
+      )
+    );
     sortToLatestDate(tasksList);
     sortTasks(tasksList);
     appendChildren(mainTasks, tasksList);
-    
 
     // mainTasks.appendChild(createDefaultToDos(taskPriority, taskTitle, taskDate, taskDetails, taskProject));
     document.querySelector(".task-edit-bg").style.display = "none";
@@ -220,10 +236,8 @@ taskEditForm.addEventListener('click', (e) => {
     // manageTasks().deleteTask();
     // manageTasks().openEditForm();
     // manageTasks().closeEditForm();
-
-  })
+  });
 })();
-
 
 // navigate home/today/week/month pages
 const sidebarList = document.querySelector(".sidebar-list");
@@ -233,50 +247,52 @@ sidebarList.addEventListener("click", (e) => {
   // console.log(e.target)
   switch (e.target.classList[1]) {
     case "home-page":
-      if (mainTasks.classList[1] === 'main-notes') {
-        mainTasks.classList.toggle('main-notes');
+      if (mainTasks.classList[1] === "main-notes") {
+        mainTasks.classList.toggle("main-notes");
       }
       removeChildren(mainTasks);
       appendChildren(mainTasks, tasksList);
       // document.querySelector('.home-counter').innerText = tasksList.length
       break;
     case "today-page":
-      if (mainTasks.classList[1] === 'main-notes') {
-        mainTasks.classList.toggle('main-notes');
+      if (mainTasks.classList[1] === "main-notes") {
+        mainTasks.classList.toggle("main-notes");
       }
       removeChildren(mainTasks);
       appendChildren(mainTasks, sortedTasksList[0]);
       // document.querySelector('.today-counter').innerText = sortedTasksList[0].length
       break;
     case "week-page":
-      if (mainTasks.classList[1] === 'main-notes') {
-        mainTasks.classList.toggle('main-notes');
+      if (mainTasks.classList[1] === "main-notes") {
+        mainTasks.classList.toggle("main-notes");
       }
       removeChildren(mainTasks);
       appendChildren(mainTasks, sortedTasksList[1]);
       // document.querySelector('.week-counter').innerText = sortedTasksList[1].length
       break;
     case "month-page":
-      if (mainTasks.classList[1] === 'main-notes') {
-        mainTasks.classList.toggle('main-notes');
+      if (mainTasks.classList[1] === "main-notes") {
+        mainTasks.classList.toggle("main-notes");
       }
       removeChildren(mainTasks);
       appendChildren(mainTasks, sortedTasksList[2]);
       // document.querySelector('.month-counter').innerText = sortedTasksList[2].length
       break;
     case "notes-page":
-      if (!(mainTasks.classList[1] === 'main-notes')) {
-        mainTasks.classList.toggle('main-notes');
+      if (!(mainTasks.classList[1] === "main-notes")) {
+        mainTasks.classList.toggle("main-notes");
       }
       removeChildren(mainTasks);
       // appendChildren(mainTasks, defaultNotes);
       appendChildren(mainTasks, notesList);
       // delete a note
-      document.querySelector('.main-notes').addEventListener('click', (event) => {
-        if (event.target.classList[0] === 'delete-note') {
-          deleteNote(event, notesList);
-        }
-      })
+      document
+        .querySelector(".main-notes")
+        .addEventListener("click", (event) => {
+          if (event.target.classList[0] === "delete-note") {
+            deleteNote(event, notesList);
+          }
+        });
       // mainTasks.classList.toggle('main-notes');
       break;
     default:
@@ -284,31 +300,29 @@ sidebarList.addEventListener("click", (e) => {
   }
 });
 
-
 // checkbox for project input
 enableProjectInput();
 enableEditProjectInput();
 
 // navigate among projects
-document.querySelector('.sidebar-projects').addEventListener('click', (e) => {
-  if (mainTasks.classList[1] === 'main-notes') {
-    mainTasks.classList.toggle('main-notes');
+document.querySelector(".sidebar-projects").addEventListener("click", (e) => {
+  if (mainTasks.classList[1] === "main-notes") {
+    mainTasks.classList.toggle("main-notes");
   }
   const projectsList = sortTasksByProj(tasksList);
   const sortedProjects = [];
-  projectsList.forEach(item => {
+  projectsList.forEach((item) => {
     if (item[0] === e.target.innerText) {
-      sortedProjects.push(item[1])
+      sortedProjects.push(item[1]);
       removeChildren(mainTasks);
     }
-  })
+  });
   appendChildren(mainTasks, sortedProjects);
 });
 
-
 // mark the task checked
-document.querySelectorAll('.task-title-checkbox').forEach((item) => {
-  item.addEventListener('click', (e) => {
+document.querySelectorAll(".task-title-checkbox").forEach((item) => {
+  item.addEventListener("click", (e) => {
     manageTasks().markChecked(e);
   });
 });
@@ -316,19 +330,17 @@ document.querySelectorAll('.task-title-checkbox').forEach((item) => {
 // notes pages
 
 // create a note
-document.querySelector('.submit-note-btn').addEventListener('click', () => {
+document.querySelector(".submit-note-btn").addEventListener("click", () => {
   removeChildren(mainTasks);
   // appendChildren(mainTasks, defaultNotes);
   notesList.push(notesFactory());
   appendChildren(mainTasks, notesList);
-  if (!(mainTasks.classList[1] === 'main-notes')) {
-    mainTasks.classList.toggle('main-notes');
+  if (!(mainTasks.classList[1] === "main-notes")) {
+    mainTasks.classList.toggle("main-notes");
   }
   // mainTasks.classList.toggle('main-notes');
   bgForm.style.display = "none";
-})
-
-
+});
 
 // manageTasks().editForm()
 
@@ -395,7 +407,7 @@ document.querySelector('.submit-note-btn').addEventListener('click', () => {
 //       //   taskDetails = editTaskDetails.value;
 //       //   taskDate = fns.format(new Date(editTaskDate.value), "EEEE, MMM d y");
 //       //   taskProject = editTaskProj.value;
-        
+
 //       //   document.querySelectorAll('.priority-edit').forEach((radioBtn) => {
 //       //       if (radioBtn.checked) {
 //       //         taskPriority = radioBtn.value;
@@ -462,8 +474,6 @@ document.querySelector('.submit-note-btn').addEventListener('click', () => {
 //       }
 //     });
 //   };
-
-  
 
 //   return {openEditForm, closeEditForm, deleteTask, navigateForm, editForm};
 // })();

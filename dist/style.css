@@ -99,6 +99,10 @@ a {
     cursor: pointer;
 }
 
+.sidebar-item-proj:hover a {
+    cursor: default;
+}
+
 .project-item:hover {
     opacity: .7;
     cursor: pointer;
@@ -233,11 +237,13 @@ a {
 }
 
 .task-priority {
-    width: 3%;
-    height: 70%;
-    margin-left: -.1em;
+    /* width: 3%; */
+    /* height: 70%; */
+    margin-left: -.4em;
     background-color: green;
-    border-radius: 100px;
+    width: .3em;
+    height: 100%;
+    border-radius: 10px;
 }
 
 .task-title-checkbox {
