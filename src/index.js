@@ -105,6 +105,9 @@ plusBtn.addEventListener("click", () => {
   document.querySelector("#project-check").checked = false;
   document.querySelector("#project-name").disabled = true;
   document.querySelector("#project-name").value = "";
+  // clean new note form before displaying
+  document.querySelector(".note-title-form").value = "";
+  document.querySelector(".note-text-form").value = "";
   // open the form
   document.querySelector(".bg-form").style.display = "flex";
   document.querySelector(".todo-form").style =

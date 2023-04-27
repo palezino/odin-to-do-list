@@ -299,7 +299,7 @@ a {
 
 .close-form {
     position: absolute;
-    top: 8px;
+    top: 2px;
     right: 20px;
     font-size: 32px;
     transform: rotate(45deg);
