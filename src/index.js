@@ -1,10 +1,11 @@
 import { format } from "date-fns";
 import {
+  createNewElement,
   tasksFactory,
   manageTasks,
   createDefaultToDos,
   sortToLatestDate,
-  sortTasks,
+  sortTasksNav,
   sortTasksByProj,
   enableProjectInput,
   enableEditProjectInput,
@@ -77,11 +78,11 @@ notesList = [...defaultNotes];
 // tasksList = tasksList.concat(defaultToDos);
 // sort the array to the latest date and it to the DOM
 // sortToLatestDate(tasksList);
-// sortTasks(tasksList);
+// sortTasksNav(tasksList);
 // appendChildren(mainTasks, tasksList);
 
 sortToLatestDate(defaultToDos);
-sortTasks(defaultToDos);
+sortTasksNav(defaultToDos);
 appendChildren(mainTasks, defaultToDos);
 tasksList = [...mainTasks.childNodes];
 
@@ -140,7 +141,7 @@ submitBtn.addEventListener("click", () => {
   tasksList.push(tasksFactory());
 
   sortToLatestDate(tasksList);
-  sortTasks(tasksList);
+  sortTasksNav(tasksList);
   appendChildren(mainTasks, tasksList);
   bgForm.style.display = "none";
 
@@ -170,12 +171,16 @@ mainTasks.addEventListener("click", (e) => {
     taskToBeEdited = manageTasks().openEditForm(e);
     console.log(taskToBeEdited);
   }
-  // delete task, resort tasks, and update task counter
+  // delete task, sort tasks, and update task counter
   if (e.target.alt === "delete") {
     manageTasks().deleteTask(e, tasksList);
-    sortTasks(tasksList);
+    sortTasksNav(tasksList);
     // check if "Project name" is not among the keys then delete the project
     deleteProjects(tasksList);
+  }
+  // mark task as checked
+  if (e.target.id === 'task-title') {
+    manageTasks().markChecked(e);
   }
 });
 
@@ -231,7 +236,7 @@ taskEditForm.addEventListener("click", (e) => {
       )
     );
     sortToLatestDate(tasksList);
-    sortTasks(tasksList);
+    sortTasksNav(tasksList);
     appendChildren(mainTasks, tasksList);
 
     // mainTasks.appendChild(createDefaultToDos(taskPriority, taskTitle, taskDate, taskDetails, taskProject));
@@ -247,7 +252,7 @@ taskEditForm.addEventListener("click", (e) => {
 const sidebarList = document.querySelector(".sidebar-list");
 
 sidebarList.addEventListener("click", (e) => {
-  const sortedTasksList = sortTasks(tasksList);
+  const sortedTasksList = sortTasksNav(tasksList);
   // console.log(e.target)
   switch (e.target.classList[1]) {
     case "home-page":
@@ -325,11 +330,11 @@ document.querySelector(".sidebar-projects").addEventListener("click", (e) => {
 });
 
 // mark the task checked
-document.querySelectorAll(".task-title-checkbox").forEach((item) => {
-  item.addEventListener("click", (e) => {
-    manageTasks().markChecked(e);
-  });
-});
+// document.querySelectorAll(".task-title-checkbox").forEach((item) => {
+//   item.addEventListener("click", (e) => {
+//     manageTasks().markChecked(e);
+//   });
+// });
 
 // notes pages
 
@@ -345,6 +350,20 @@ document.querySelector(".submit-note-btn").addEventListener("click", () => {
   // mainTasks.classList.toggle('main-notes');
   bgForm.style.display = "none";
 });
+
+
+// testing localStorage
+// for (let i = 0; i < tasksList.length; i++) {
+//   const value = tasksList[i].innerHTML;
+//   localStorage.setItem(i, value);
+// }
+
+// const testDiv = createNewElement('div', 'task');
+// testDiv.innerHTML = localStorage.getItem('0');
+// mainTasks.appendChild(testDiv);
+// console.log(tasksList[0].innerHTML)
+
+
 
 // manageTasks().editForm()
 
