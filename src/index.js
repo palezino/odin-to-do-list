@@ -14,7 +14,7 @@ import {
   deleteProjects,
   storeTasks,
 } from "./script-tasks";
-import { createDefaultNotes, deleteNote, notesFactory } from "./script-notes";
+import { createDefaultNotes, deleteNote, notesFactory, storeNotes } from "./script-notes";
 
 // const fns = require("date-fns");
 
@@ -74,7 +74,7 @@ let tasksList = [];
 // an array with note
 let notesList = [];
 
-notesList = [...defaultNotes];
+
 
 // tasksList = tasksList.concat(defaultToDos);
 // sort the array to the latest date and it to the DOM
@@ -85,7 +85,7 @@ notesList = [...defaultNotes];
 sortToLatestDate(defaultToDos);
 sortTasksNav(defaultToDos);
 // if localStorage is empty create default todos and notes otherwise load todos and notes from the storage
-if (localStorage.length === 0) {
+if (localStorage.length === 0 || localStorage.getItem('tasks') === null) {
   tasksList = [...defaultToDos];
   storeTasks(tasksList);
   // localStorage.setItem('tasks', tasksStorage);
@@ -311,13 +311,21 @@ sidebarList.addEventListener("click", (e) => {
       }
       removeChildren(mainTasks);
       // appendChildren(mainTasks, defaultNotes);
-      appendChildren(mainTasks, notesList);
+      if (localStorage.getItem('notes') === null) {
+        notesList = [...defaultNotes];
+        storeNotes(notesList);
+        appendChildren(mainTasks, notesList);
+      } else {
+        mainTasks.innerHTML = localStorage.getItem('notes');
+        notesList = [...mainTasks.childNodes];
+      }
       // delete a note
       document
         .querySelector(".main-notes")
         .addEventListener("click", (event) => {
           if (event.target.classList[0] === "delete-note") {
             deleteNote(event, notesList);
+            storeNotes(notesList);
           }
         });
       // mainTasks.classList.toggle('main-notes');
@@ -362,6 +370,7 @@ document.querySelector(".submit-note-btn").addEventListener("click", () => {
   // appendChildren(mainTasks, defaultNotes);
   notesList.push(notesFactory());
   appendChildren(mainTasks, notesList);
+  storeNotes(notesList);
   if (!(mainTasks.classList[1] === "main-notes")) {
     mainTasks.classList.toggle("main-notes");
   }
