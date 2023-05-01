@@ -319,6 +319,21 @@ sidebarList.addEventListener("click", (e) => {
         mainTasks.innerHTML = localStorage.getItem('notes');
         notesList = [...mainTasks.childNodes];
       }
+      // edit note
+      document.querySelector('.note-title').addEventListener('change', (event) => {
+        // eslint-disable-next-line no-param-reassign
+        event.target.innerText = event.target.value;
+          notesList = [...mainTasks.childNodes];
+          storeNotes(notesList);
+        }
+      );
+      document.querySelector('.note-text').addEventListener('change', (event) => {
+        // eslint-disable-next-line no-param-reassign
+        event.target.innerText = event.target.value;
+          notesList = [...mainTasks.childNodes];
+          storeNotes(notesList);
+        }
+      );
       // delete a note
       document
         .querySelector(".main-notes")
@@ -380,6 +395,7 @@ document.querySelector(".submit-note-btn").addEventListener("click", () => {
 
 
 // testing localStorage
+
 // let tasksStorageList = "";
 // tasksList.forEach((item) => {
 //   const value = item.outerHTML;
