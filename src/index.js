@@ -90,12 +90,12 @@ if (localStorage.length === 0) {
   storeTasks(tasksList);
   // localStorage.setItem('tasks', tasksStorage);
   appendChildren(mainTasks, defaultToDos);
-  
+  sortTasksNav(tasksList);
   // console.log('case1')
 } else {
   mainTasks.innerHTML = localStorage.getItem('tasks');
   tasksList = [...mainTasks.childNodes];
-
+  sortTasksNav(tasksList);
   // console.log('case2')
 }
 
