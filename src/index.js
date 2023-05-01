@@ -1,6 +1,5 @@
 import { format } from "date-fns";
 import {
-  createNewElement,
   tasksFactory,
   manageTasks,
   createDefaultToDos,
@@ -13,12 +12,14 @@ import {
   closeSumCard,
   fillSumCard,
   deleteProjects,
+  storeTasks,
 } from "./script-tasks";
 import { createDefaultNotes, deleteNote, notesFactory } from "./script-notes";
 
 // const fns = require("date-fns");
 
 console.log("hello");
+
 const mainTasks = document.querySelector(".main-tasks");
 
 const appendChildren = (parent, children) => {
@@ -43,7 +44,7 @@ const defaultToDos = [
   ),
   createDefaultToDos(
     "low",
-    "buy a cake",
+    "buy, a cake",
     "2023-04-25",
     "go to Fika for the birthday cake"
   ),
@@ -83,8 +84,22 @@ notesList = [...defaultNotes];
 
 sortToLatestDate(defaultToDos);
 sortTasksNav(defaultToDos);
-appendChildren(mainTasks, defaultToDos);
-tasksList = [...mainTasks.childNodes];
+// if localStorage is empty create default todos and notes otherwise load todos and notes from the storage
+if (localStorage.length === 0) {
+  tasksList = [...defaultToDos];
+  storeTasks(tasksList);
+  // localStorage.setItem('tasks', tasksStorage);
+  appendChildren(mainTasks, defaultToDos);
+  
+  // console.log('case1')
+} else {
+  mainTasks.innerHTML = localStorage.getItem('tasks');
+  tasksList = [...mainTasks.childNodes];
+
+  // console.log('case2')
+}
+
+// appendChildren(mainTasks, defaultToDos);
 
 // manageTasks().deleteTask();
 // manageTasks().openEditForm();
@@ -143,6 +158,7 @@ submitBtn.addEventListener("click", () => {
   sortToLatestDate(tasksList);
   sortTasksNav(tasksList);
   appendChildren(mainTasks, tasksList);
+  storeTasks(tasksList);
   bgForm.style.display = "none";
 
   // manageTasks().deleteTask();
@@ -153,7 +169,7 @@ submitBtn.addEventListener("click", () => {
 // manage tasks
 let taskToBeEdited;
 mainTasks.addEventListener("click", (e) => {
-  // console.log(e.target)
+  console.log(e.target)
   // const arr = ['Title', 'Details', 'Sunday, Apr 9 2023', 'Project', 'Low'];
   // open task summary
   if (
@@ -177,6 +193,7 @@ mainTasks.addEventListener("click", (e) => {
     sortTasksNav(tasksList);
     // check if "Project name" is not among the keys then delete the project
     deleteProjects(tasksList);
+    storeTasks(tasksList);
   }
   // mark task as checked
   if (e.target.id === 'task-title') {
@@ -238,6 +255,7 @@ taskEditForm.addEventListener("click", (e) => {
     sortToLatestDate(tasksList);
     sortTasksNav(tasksList);
     appendChildren(mainTasks, tasksList);
+    storeTasks(tasksList);
 
     // mainTasks.appendChild(createDefaultToDos(taskPriority, taskTitle, taskDate, taskDetails, taskProject));
     document.querySelector(".task-edit-bg").style.display = "none";
@@ -353,6 +371,18 @@ document.querySelector(".submit-note-btn").addEventListener("click", () => {
 
 
 // testing localStorage
+// let tasksStorageList = "";
+// tasksList.forEach((item) => {
+//   const value = item.outerHTML;
+  
+//   tasksStorageList += value;
+// })
+// console.log(tasksList)
+
+
+// mainTasks.innerHTML = localStorage.getItem('tasks')
+
+// eslint-disable-next-line no-plusplus
 // for (let i = 0; i < tasksList.length; i++) {
 //   const value = tasksList[i].innerHTML;
 //   localStorage.setItem(i, value);
@@ -360,8 +390,8 @@ document.querySelector(".submit-note-btn").addEventListener("click", () => {
 
 // const testDiv = createNewElement('div', 'task');
 // testDiv.innerHTML = localStorage.getItem('0');
-// mainTasks.appendChild(testDiv);
-// console.log(tasksList[0].innerHTML)
+// // mainTasks.appendChild(testDiv);
+// console.log(tasksList)
 
 
 
