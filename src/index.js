@@ -13,6 +13,8 @@ import {
   fillSumCard,
   deleteProjects,
   storeTasks,
+  showProjs,
+  // createNewElement
 } from "./script-tasks";
 import { createDefaultNotes, deleteNote, notesFactory, storeNotes } from "./script-notes";
 
@@ -91,11 +93,13 @@ if (localStorage.length === 0 || localStorage.getItem('tasks') === null) {
   // localStorage.setItem('tasks', tasksStorage);
   appendChildren(mainTasks, defaultToDos);
   sortTasksNav(tasksList);
+  showProjs();
   // console.log('case1')
 } else {
   mainTasks.innerHTML = localStorage.getItem('tasks');
   tasksList = [...mainTasks.childNodes];
   sortTasksNav(tasksList);
+  showProjs();
   // console.log('case2')
 }
 
@@ -394,7 +398,11 @@ document.querySelector(".submit-note-btn").addEventListener("click", () => {
 });
 
 
-// testing localStorage
+// testing projects display
+
+
+// showProjs();
+
 
 // let tasksStorageList = "";
 // tasksList.forEach((item) => {
